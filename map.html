@@ -1,25 +1,164 @@
-// Данные партнёров
-const partnersData = [
-    { 
-        id: 'biometria', 
-        name: 'Биометрия', 
-        fullName: 'Клиника Биометрия (косметология)', // Полное название для балуна
-        coords: [55.786885, 37.854027], 
-        url: 'biometria.html',
-        logo: 'https://invasive.ru/wp-content/uploads/2024/10/biometria-dr.-markova.jpg'
-    },
-    { 
-        id: 'coffee', 
-        name: 'Кофе Хаус', 
-        coords: [55.790000, 37.850000], 
-        url: '#',
-        logo: '#'
-    },
-    { 
-        id: 'beauty', 
-        name: 'Beauty Bar', 
-        coords: [55.780000, 37.860000], 
-        url: '#',
-        logo: '#'
-    }
-];
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Карта партнёров · ЖК Акварели</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+        }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: white;
+            border: none;
+            border-radius: 40px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            color: #1e293b;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .back-btn i {
+            margin-right: 6px;
+            color: #2469F5;
+        }
+        .map-legend {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: 30px;
+            padding: 12px 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            border: 1px solid #f0f0f0;
+        }
+        .map-legend::-webkit-scrollbar {
+            display: none;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            text-decoration: none;
+        }
+        .legend-logo {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=2ed2cd33-8e60-4e05-8441-0dba3d23aa60&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Назад</a>
+    <div id="map"></div>
+    <div class="map-legend" id="legend"></div>
+
+    <script>
+        ymaps.ready(init);
+
+        // Данные партнёров
+        const partnersData = [
+            { 
+                id: 'biometria', 
+                name: 'Биометрия', 
+                fullName: 'Клиника Биометрия (косметология)',
+                coords: [55.786885, 37.854027], 
+                url: 'biometria.html',
+                logo: 'https://invasive.ru/wp-content/uploads/2024/10/biometria-dr.-markova.jpg'
+            },
+            { 
+                id: 'coffee', 
+                name: 'Кофе Хаус', 
+                coords: [55.790000, 37.850000], 
+                url: '#',
+                logo: '#'
+            },
+            { 
+                id: 'beauty', 
+                name: 'Beauty Bar', 
+                coords: [55.780000, 37.860000], 
+                url: '#',
+                logo: '#'
+            }
+        ];
+
+        function init() {
+            const center = [55.786885, 37.854027];
+            
+            const myMap = new ymaps.Map('map', {
+                center: center,
+                zoom: 14,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+
+            partnersData.forEach(partner => {
+                const properties = {
+                    balloonContentHeader: `<strong>${partner.fullName || partner.name}</strong>`,
+                    balloonContentBody: `<a href="${partner.url}">Перейти на страницу →</a>`,
+                    balloonContentFooter: 'ЖК Акварели',
+                    iconCaption: partner.name + (partner.id === 'biometria' ? ' косметология' : '')
+                };
+
+                const options = {
+                    iconLayout: 'default#imageWithContent',
+                    iconImageHref: partner.logo,
+                    iconImageSize: [40, 40],
+                    iconImageOffset: [-20, -40],
+                    iconContentOffset: [0, 45],
+                    iconContentLayout: '<div style="color: #1e293b; font-weight: 600; font-size: 12px; text-shadow: 0 1px 2px white; white-space: nowrap;">{{ properties.iconCaption }}</div>'
+                };
+
+                const placemark = new ymaps.Placemark(partner.coords, properties, options);
+                myMap.geoObjects.add(placemark);
+            });
+
+            if (partnersData.length > 0) {
+                myMap.setBounds(myMap.geoObjects.getBounds(), {
+                    checkZoomRange: true,
+                    zoomMargin: 30
+                });
+            }
+
+            const legend = document.getElementById('legend');
+            legend.innerHTML = partnersData.map(p => `
+                <a href="${p.url}" class="legend-item">
+                    <img class="legend-logo" src="${p.logo}" alt="${p.name}">
+                    <span>${p.name}${p.id === 'biometria' ? ' косметология' : ''}</span>
+                </a>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
