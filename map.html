@@ -93,8 +93,8 @@
         const partnersData = [
             { 
                 id: 'biometria', 
-                name: 'Клиника Биометрия',           // отображается под логотипом
-                fullName: 'Клиника Биометрия (косметология)', // в балуне
+                name: 'Клиника Биометрия',
+                fullName: 'Клиника Биометрия (косметология)',
                 coords: [55.786885, 37.854027], 
                 url: 'biometria.html',
                 logo: 'https://invasive.ru/wp-content/uploads/2024/10/biometria-dr.-markova.jpg'
@@ -125,59 +125,14 @@
             });
 
             partnersData.forEach(partner => {
-                // Свойства метки (всплывающее окно)
+                // Свойства метки (всплывающее окно отключено, оставляем пустым или минимальным)
                 const properties = {
-                    balloonContentHeader: `<strong>${partner.fullName || partner.name}</strong>`,
-                    balloonContentBody: `<a href="${partner.url}">Перейти на страницу →</a>`,
-                    balloonContentFooter: 'ЖК Акварели',
-                    iconCaption: partner.name   // текст под иконкой
+                    // balloonContent отключён, чтобы не мешал переходу
+                    iconCaption: partner.name
                 };
 
-                // Опции кастомной метки
+                // Опции круглой метки с логотипом
                 const options = {
-                    iconLayout: 'default#imageWithContent',
-                    iconImageHref: partner.logo,
-                    iconImageSize: [44, 44],               // размер логотипа
-                    iconImageOffset: [-22, -44],           // смещение, чтобы "носик" указывал точно в точку
-                    iconImageClipRect: [[0, 0], [44, 44]], // обрезка (не обязательно, но можно)
-                    iconContentOffset: [0, 52],            // позиция текста относительно иконки
-                    iconContentLayout: `
-                        <div style="
-                            color: #1e293b; 
-                            font-weight: 600; 
-                            font-size: 13px; 
-                            text-shadow: 0 1px 3px white;
-                            white-space: nowrap;
-                            background: rgba(255,255,255,0.7);
-                            padding: 2px 8px;
-                            border-radius: 20px;
-                            backdrop-filter: blur(2px);
-                            border: 1px solid rgba(0,0,0,0.05);
-                        ">{{ properties.iconCaption }}</div>
-                    `,
-                    // Добавляем круглую обводку с помощью дополнительного шаблона
-                    iconShape: {
-                        type: 'Circle',
-                        coordinates: [22, 22],
-                        radius: 22
-                    }
-                };
-
-                // Дополнительно: чтобы логотип стал круглым, используем iconImageClipRect
-                // но проще задать через CSS в iconContentLayout, однако это не повлияет на саму картинку.
-                // Поэтому обернём изображение в круглую маску через iconLayout = default#image
-                // Но для этого нужно создать свой макет. Сделаем проще: установим iconImageSize и 
-                // применим shape, а также через iconImageClipRect обрежем углы.
-                options.iconImageClipRect = [[0, 0], [44, 44]];
-                
-                // Чтобы картинка была круглой, используем свойство iconImageShape
-                // Но в API Яндекс.Карт v2.1 это делается через iconLayout с кастомным шаблоном.
-                // Упростим: добавим белую обводку и скругление через CSS не получится, 
-                // поэтому используем iconLayout = 'default#image' и зададим форму круга.
-                // Заменим на более простой подход: используем готовый пресет с круглой меткой и картинкой внутри.
-                
-                // Переопределим options для круглой метки с логотипом
-                const circleOptions = {
                     iconLayout: 'default#imageWithContent',
                     iconImageHref: partner.logo,
                     iconImageSize: [48, 48],
@@ -203,10 +158,25 @@
                         type: 'Circle',
                         coordinates: [24, 24],
                         radius: 24
-                    }
+                    },
+                    // Отключаем показ балуна при клике
+                    openBalloonOnClick: false,
+                    // Курсор в виде указателя
+                    cursor: 'pointer'
                 };
 
-                const placemark = new ymaps.Placemark(partner.coords, properties, circleOptions);
+                const placemark = new ymaps.Placemark(partner.coords, properties, options);
+                
+                // Добавляем обработчик клика для перехода на страницу партнёра
+                placemark.events.add('click', function(e) {
+                    const targetUrl = partner.url;
+                    if (targetUrl && targetUrl !== '#') {
+                        window.location.href = targetUrl;
+                    } else {
+                        alert('Страница партнёра скоро появится');
+                    }
+                });
+
                 myMap.geoObjects.add(placemark);
             });
 
@@ -221,7 +191,7 @@
             // Легенда
             const legend = document.getElementById('legend');
             legend.innerHTML = partnersData.map(p => `
-                <a href="${p.url}" class="legend-item">
+                <a href="${p.url}" class="legend-item" onclick="if('${p.url}' === '#') { alert('Страница появится позже.'); return false; }">
                     <img class="legend-logo" src="${p.logo}" alt="${p.name}">
                     <span>${p.name}</span>
                 </a>
