@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Биометрия — Локальный портал</title>
     
+    <!-- Font Awesome для иконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
@@ -85,7 +86,7 @@
         .offer-card {
             flex: 0 0 auto;
             width: auto;
-            height: 60vh; /* 60% высоты экрана */
+            height: 60vh;
             scroll-snap-align: start;
             border-radius: 28px;
             overflow: hidden;
@@ -333,6 +334,15 @@
         .modal-btn.telegram {
             background: #26A5E4;
         }
+        
+        /* Виджет ВК */
+        #vk_widget {
+            margin-top: 16px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            border: 1px solid #eef3f8;
+        }
     </style>
 </head>
 <body>
@@ -438,12 +448,29 @@
             <iframe src="https://vk.com/video_ext.php?oid=-221195170&id=456239060" allow="encrypted-media; fullscreen; picture-in-picture" frameborder="0" allowfullscreen></iframe>
         </div>
 
-        <!-- Отзывы -->
+        <!-- Отзывы Яндекс -->
         <div class="section-title">Отзывы пациентов</div>
         <div class="reviews-widget">
             <iframe style="width:100%;height:100%;border:none;" src="https://yandex.ru/maps-reviews-widget/232175363349?comments" loading="lazy"></iframe>
         </div>
         <a href="https://yandex.ru/maps/org/biometriya_doktora_markovoy_d_a_/232175363349/reviews/" target="_blank" style="font-size:14px;">Читать все отзывы →</a>
+
+        <!-- Лента ВКонтакте -->
+        <div class="section-title">Новости и акции ВКонтакте</div>
+        <div id="vk_widget"></div>
+        <script type="text/javascript" src="https://vk.com/js/api/openapi.js?169"></script>
+        <script type="text/javascript">
+          (function() {
+            VK.Widgets.Group("vk_widget", {
+              mode: 3,
+              width: "auto",
+              height: 500,
+              color1: "FFFFFF",
+              color2: "000000",
+              color3: "2469F5"
+            }, "biometria_dr.markova");
+          })();
+        </script>
 
         <!-- QR -->
         <div class="qr-note">
@@ -460,11 +487,11 @@
     </div>
 
     <div class="footer">
-        Локальный портал · Балашиха, ЖК «Акварели» · <a href="#">Все партнёры</a>
+        Локальный портал · Балашиха, ЖК «Акварели» · <a href="index.html">Все партнёры</a>
     </div>
 </div>
 
-<!-- Модальное окно -->
+<!-- Модальное окно для акций -->
 <div class="modal" id="offerModal">
     <div class="modal-content">
         <span class="modal-close" onclick="closeModal()">&times;</span>
@@ -505,7 +532,7 @@
         4: {
             img: 'https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL',
             title: 'Счастливые часы: скидка 10%',
-            desc: 'При посещении клиники с 9:00 до 11:00 в будние дни вы получаете скидку 10% на все процедуры (кроме лаборатории). Отличный повод начать день с заботы о себе!'
+            desc: 'При посещении клиники с 9:00 до 11:00 в будние дни вы получаете скидку 10% на все процедуры (кроме лаборатории). Отличный повод начать день с заботой о себе!'
         }
     };
 
