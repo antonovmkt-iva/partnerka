@@ -86,7 +86,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 24px 0 80px;  /* уменьшен отступ снизу */
+            padding: 24px 0 60px;  /* уменьшен нижний отступ */
         }
         .app-wrapper {
             flex: 1;
@@ -435,7 +435,7 @@
             font-weight: 500;
         }
 
-        /* Нижняя навигация (компактная) */
+        /* Нижняя навигация (очень компактная) */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -443,7 +443,7 @@
             right: 0;
             background: white;
             border-top: 1px solid #eef2f6;
-            padding: 6px 12px 10px;   /* уменьшены отступы */
+            padding: 4px 12px 6px;   /* минимальные отступы */
             display: flex;
             justify-content: space-around;
             max-width: 480px;
@@ -455,9 +455,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;                 /* меньше промежуток */
+            gap: 2px;
             color: #6b7a8f;
-            font-size: 11px;           /* чуть мельче шрифт */
+            font-size: 11px;
             text-decoration: none;
             cursor: pointer;
             transition: color 0.15s;
@@ -576,7 +576,7 @@
                     </div>
                 </div>
 
-                <!-- Горячие акции (оранжевый блок) -->
+                <!-- Горячие акции -->
                 <div class="section" id="offersSection">
                     <div class="section-header"><h2>Горячие акции</h2></div>
                     <div class="offers-carousel" id="offersCarousel"></div>
@@ -623,7 +623,7 @@
     </div>
 </div>
 
-<!-- Нижняя навигация (3 пункта: Главная, Карта, О портале) -->
+<!-- Нижняя навигация -->
 <div class="bottom-nav">
     <div class="nav-item active" data-nav="home"><i class="fas fa-home"></i><span>Главная</span></div>
     <div class="nav-item" data-nav="map"><i class="fas fa-map"></i><span>Карта</span></div>
@@ -739,11 +739,11 @@
         modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
         aboutModal.addEventListener('click', e=>{ if(e.target===aboutModal) closeAboutModal(); });
 
-        // Нижняя навигация
+        // Нижняя навигация: Карта теперь ведёт на map.html
         document.querySelectorAll('.nav-item').forEach(i=> i.addEventListener('click', ()=>{
             const nav = i.dataset.nav;
             if(nav==='home') window.scrollTo({top:0,behavior:'smooth'});
-            else if(nav==='map') document.getElementById('mapSection').scrollIntoView({behavior:'smooth'});
+            else if(nav==='map') window.location.href = 'map.html';
             else if(nav==='about') aboutModal.classList.add('active');
         }));
 
