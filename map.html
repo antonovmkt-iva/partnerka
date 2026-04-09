@@ -77,19 +77,6 @@
             object-fit: cover;
             border: 1px solid #e2e8f0;
         }
-        /* Стили для fallback в легенде */
-        .legend-fallback {
-            display: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #2469F5;
-            color: white;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://api-maps.yandex.ru/2.1/?apikey=2ed2cd33-8e60-4e05-8441-0dba3d23aa60&lang=ru_RU" type="text/javascript"></script>
@@ -117,14 +104,14 @@
                 name: 'Кофе Хаус', 
                 coords: [55.790000, 37.850000], 
                 url: '#',
-                logo: '#'
+                logo: '#'  // заглушка
             },
             { 
                 id: 'beauty', 
                 name: 'Beauty Bar', 
                 coords: [55.780000, 37.860000], 
                 url: '#',
-                logo: '#'
+                logo: '#'  // заглушка
             }
         ];
 
@@ -137,7 +124,7 @@
                 controls: ['zoomControl', 'fullscreenControl']
             });
 
-            // Кастомный макет метки: круглое изображение + подпись
+            // Кастомный макет метки: круглое изображение + подпись (не смещается при зуме)
             const customLayout = ymaps.templateLayoutFactory.createClass(
                 '<div class="custom-placemark">' +
                     '<div class="custom-placemark-image-wrapper">' +
@@ -163,7 +150,8 @@
                         coordinates: [24, 24],
                         radius: 24
                     },
-                    iconOffset: [-24, -24], // центр изображения указывает на координаты
+                    // Точка привязки: центр нижней границы изображения (48x48)
+                    iconOffset: [-24, -48],
                     cursor: 'pointer',
                     openBalloonOnClick: false
                 };
@@ -244,12 +232,12 @@
                 });
             }
 
-            // Легенда
+            // Легенда внизу
             const legend = document.getElementById('legend');
             legend.innerHTML = partnersData.map(p => `
                 <a href="${p.url}" class="legend-item" onclick="if('${p.url}' === '#') { alert('Страница появится позже.'); return false; }">
                     <img class="legend-logo" src="${p.logo}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="legend-fallback">${p.name.charAt(0)}</div>
+                    <div class="legend-fallback" style="display:none; width:24px; height:24px; border-radius:50%; background:#2469F5; color:white; align-items:center; justify-content:center; font-size:12px; font-weight:bold;">${p.name.charAt(0)}</div>
                     <span>${p.name}</span>
                 </a>
             `).join('');
