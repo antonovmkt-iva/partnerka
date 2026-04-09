@@ -77,19 +77,6 @@
             object-fit: cover;
             border: 1px solid #e2e8f0;
         }
-        /* Стили для fallback-аватарки в легенде */
-        .legend-fallback {
-            display: none; /* скрыто по умолчанию, показывается через JS при ошибке загрузки */
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #2469F5;
-            color: white;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://api-maps.yandex.ru/2.1/?apikey=2ed2cd33-8e60-4e05-8441-0dba3d23aa60&lang=ru_RU" type="text/javascript"></script>
@@ -108,9 +95,10 @@
                 id: 'biometria', 
                 name: 'Клиника Биометрия',
                 fullName: 'Клиника Биометрия (косметология)',
-                coords: [55.786885, 37.854027], // Правильные координаты для Реутовская, 27
+                // Координаты для адреса: Реутовская ул., 27
+                coords: [55.786885, 37.854027], 
                 url: 'biometria.html',
-                logo: 'biometria-logo.JPG'   // убедитесь, что файл с таким именем есть в репозитории
+                logo: 'biometria-logo.JPG'   // убедитесь, что файл с таким именем лежит в корне репозитория
             },
             { 
                 id: 'coffee', 
@@ -135,33 +123,41 @@
                 controls: ['zoomControl', 'fullscreenControl']
             });
 
+            // Кастомный макет метки (исправленное позиционирование)
+            const customLayout = ymaps.templateLayoutFactory.createClass(
+                '<div class="custom-placemark" style="cursor: pointer;">' +
+                    '<div class="custom-placemark-image-wrapper">' +
+                        '<img src="{{ properties.logo }}" class="custom-placemark-image" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+                        '<div class="custom-placemark-fallback" style="display:none;">{{ properties.fallbackLetter }}</div>' +
+                    '</div>' +
+                    '<div class="custom-placemark-caption">{{ properties.name }}</div>' +
+                '</div>'
+            );
+
             partnersData.forEach(partner => {
-                // --- ПРОСТОЙ И НАДЁЖНЫЙ СПОСОБ: ФИКСИРОВАННЫЙ МАКЕТ ИКОНКИ ---
-                // Используем стандартный пресет для изображения. Метка не будет смещаться при зуме.
-                // Подпись добавим через свойство iconCaption (отображается под иконкой).
+                const properties = {
+                    name: partner.name,
+                    logo: partner.logo,
+                    fallbackLetter: partner.name.charAt(0).toUpperCase()
+                };
+
+                // Размер логотипа: 48x48
+                // Точка привязки: центр нижней границы логотипа (-24, -48)
+                // Смещение контейнера: margin-left: -50px (ширина 100px), margin-top: -70px
                 const options = {
-                    iconLayout: 'default#image',          // стандартный макет для изображения
-                    iconImageHref: partner.logo,          // ссылка на логотип
-                    iconImageSize: [48, 48],              // размер логотипа
-                    iconImageOffset: [-24, -24],          // Точка привязки — центр изображения (48/2 = 24)
-                    iconImageClipRect: [[0, 0], [48, 48]], // обрезаем по размеру (на всякий случай)
+                    iconLayout: customLayout,
+                    iconOffset: [-24, -48],      // точка, которая "приклеивается" к координатам
                     iconShape: {
-                        type: 'Circle',
-                        coordinates: [24, 24],
-                        radius: 24
+                        type: 'Rectangle',
+                        coordinates: [[-50, -80], [50, 10]]  // область клика
                     },
                     cursor: 'pointer',
                     openBalloonOnClick: false,
                     balloon: undefined
                 };
 
-                const properties = {
-                    iconCaption: partner.name   // текст под иконкой
-                };
-
                 const placemark = new ymaps.Placemark(partner.coords, properties, options);
                 
-                // Клик — переход на страницу партнёра
                 placemark.events.add('click', function(e) {
                     if (partner.url && partner.url !== '#') {
                         window.location.href = partner.url;
@@ -172,6 +168,62 @@
 
                 myMap.geoObjects.add(placemark);
             });
+
+            // Добавляем стили для кастомной метки
+            const style = document.createElement('style');
+            style.textContent = `
+                .custom-placemark {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100px;
+                    margin-left: -50px;   /* центрируем относительно точки привязки */
+                    margin-top: -70px;     /* поднимаем вверх, чтобы логотип был над координатами */
+                    pointer-events: auto;
+                }
+                .custom-placemark-image-wrapper {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+                    border: 2px solid white;
+                    background: white;
+                    margin-bottom: 4px;
+                }
+                .custom-placemark-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                }
+                .custom-placemark-fallback {
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                    background: #2469F5;
+                    color: white;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+                .custom-placemark-caption {
+                    font-size: 13px;
+                    font-weight: 600;
+                    color: #1e293b;
+                    text-shadow: 0 1px 2px white;
+                    background: rgba(255,255,255,0.85);
+                    padding: 4px 10px;
+                    border-radius: 30px;
+                    backdrop-filter: blur(4px);
+                    white-space: nowrap;
+                    border: 1px solid rgba(0,0,0,0.05);
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+                    margin-top: 4px;
+                }
+            `;
+            document.head.appendChild(style);
 
             // Автомасштабирование
             if (partnersData.length > 0) {
@@ -186,7 +238,7 @@
             legend.innerHTML = partnersData.map(p => `
                 <a href="${p.url}" class="legend-item" onclick="if('${p.url}' === '#') { alert('Страница появится позже.'); return false; }">
                     <img class="legend-logo" src="${p.logo}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="legend-fallback" style="display:none;">${p.name.charAt(0)}</div>
+                    <div class="legend-fallback" style="display:none; width:24px; height:24px; border-radius:50%; background:#2469F5; color:white; align-items:center; justify-content:center; font-size:12px; font-weight:bold;">${p.name.charAt(0)}</div>
                     <span>${p.name}</span>
                 </a>
             `).join('');
