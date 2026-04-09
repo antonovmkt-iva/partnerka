@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Биометрия — Локальный портал</title>
     
-    <!-- Font Awesome для иконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
@@ -69,68 +68,83 @@
             margin-bottom: 20px;
             font-weight: 500;
         }
-        /* АКЦИИ (увеличены до 340px) */
-        .offer-grid {
+        
+        /* Карусель акций */
+        .offer-carousel {
             display: flex;
             gap: 16px;
             overflow-x: auto;
+            scroll-snap-type: x mandatory;
             padding: 8px 0 16px;
             scrollbar-width: none;
             margin-bottom: 20px;
         }
+        .offer-carousel::-webkit-scrollbar {
+            display: none;
+        }
         .offer-card {
-            flex: 0 0 340px;
-            border-radius: 24px;
+            flex: 0 0 auto;
+            width: auto;
+            height: 60vh; /* 60% высоты экрана */
+            scroll-snap-align: start;
+            border-radius: 28px;
             overflow: hidden;
-            border: 1px solid #eef3f8;
-            background: white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.06);
             cursor: pointer;
             transition: transform 0.15s;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.04);
         }
         .offer-card:active {
             transform: scale(0.98);
         }
         .offer-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: 100%;
+            width: auto;
             display: block;
+            object-fit: cover;
         }
         .offer-label {
-            padding: 18px;
-            font-weight: 600;
-            font-size: 18px;
-            background: #fafdfa;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
+            color: white;
+            padding: 20px 16px 16px;
+            font-weight: 700;
+            font-size: 20px;
             line-height: 1.3;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
         }
-        /* КОЛЛАЖ ФОТО (как в примере) */
-        .photo-collage {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 6px;
-            margin: 20px 0;
-            border-radius: 0;
+        
+        /* Карусель фото клиники */
+        .photo-carousel {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 8px 0 16px;
+            scrollbar-width: none;
+            margin: 16px 0;
+        }
+        .photo-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        .photo-slide {
+            flex: 0 0 85%;
+            scroll-snap-align: center;
+            border-radius: 20px;
             overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .collage-left {
-            grid-row: span 2;
-        }
-        .collage-left img,
-        .collage-right img {
+        .photo-slide img {
             width: 100%;
-            height: 100%;
+            height: 220px;
             object-fit: cover;
             display: block;
         }
-        .collage-right {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .collage-right img {
-            height: calc((100% - 6px) / 2);
-        }
+        
         .section-title {
             font-size: 18px;
             font-weight: 650;
@@ -341,26 +355,40 @@
             <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" style="width: 70px; height: 70px; border-radius: 20px; object-fit: cover;" alt="Логотип">
         </div>
 
-        <!-- АКЦИИ (увеличенные) -->
-        <div class="offer-grid">
+        <!-- Карусель акций (4 шт, высота 60vh) -->
+        <div class="offer-carousel">
+            <!-- Акция 1 -->
             <div class="offer-card" data-offer="1">
-                <img src="https://avatars.mds.yandex.net/get-altay/16055577/2a0000019a92019a0c231ccdfa6a20e0c22b/XXXL" alt="Акция 1">
+                <img src="https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL" alt="Акция 1">
                 <div class="offer-label">Скидка 20% на первый приём по промокоду PORTAL</div>
             </div>
+            <!-- Акция 2 -->
             <div class="offer-card" data-offer="2">
-                <img src="https://avatars.mds.yandex.net/get-altay/9895050/2a00000192a735f80e868fadebd42e19bbad/XXXL" alt="Акция 2">
+                <img src="https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL" alt="Акция 2">
                 <div class="offer-label">Бесплатная консультация косметолога</div>
+            </div>
+            <!-- Акция 3 -->
+            <div class="offer-card" data-offer="3">
+                <img src="https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL" alt="Акция 3">
+                <div class="offer-label">Комплексное обследование со скидкой 15%</div>
+            </div>
+            <!-- Акция 4 -->
+            <div class="offer-card" data-offer="4">
+                <img src="https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL" alt="Акция 4">
+                <div class="offer-label">Счастливые часы: скидка 10% на процедуры с 9 до 11 утра</div>
             </div>
         </div>
 
-        <!-- КОЛЛАЖ ФОТО -->
-        <div class="photo-collage">
-            <div class="collage-left">
-                <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" alt="Интерьер 1" loading="lazy">
+        <!-- Карусель фото клиники -->
+        <div class="photo-carousel">
+            <div class="photo-slide">
+                <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" alt="Фото 1" loading="lazy">
             </div>
-            <div class="collage-right">
-                <img src="https://avatars.mds.yandex.net/get-altay/19555209/2a0000019bb6ef55db8fb43cd658ad112455/XXXL" alt="Интерьер 2" loading="lazy">
-                <img src="https://avatars.mds.yandex.net/get-altay/16888214/2a00000198e20240de9ed436f9bebd368d3e/XXXL" alt="Интерьер 3" loading="lazy">
+            <div class="photo-slide">
+                <img src="https://avatars.mds.yandex.net/get-altay/19555209/2a0000019bb6ef55db8fb43cd658ad112455/XXXL" alt="Фото 2" loading="lazy">
+            </div>
+            <div class="photo-slide">
+                <img src="https://avatars.mds.yandex.net/get-altay/16888214/2a00000198e20240de9ed436f9bebd368d3e/XXXL" alt="Фото 3" loading="lazy">
             </div>
         </div>
 
@@ -436,7 +464,7 @@
     </div>
 </div>
 
-<!-- Модальное окно с мини-картинкой -->
+<!-- Модальное окно -->
 <div class="modal" id="offerModal">
     <div class="modal-content">
         <span class="modal-close" onclick="closeModal()">&times;</span>
@@ -457,17 +485,27 @@
 </div>
 
 <script>
-    // Данные акций (с ссылками на изображения)
+    // Данные для 4 акций
     const offers = {
         1: {
-            img: 'https://avatars.mds.yandex.net/get-altay/16055577/2a0000019a92019a0c231ccdfa6a20e0c22b/XXXL',
+            img: 'https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL',
             title: 'Скидка 20% на первый приём',
-            desc: 'Только для посетителей нашего портала! Предъявите промокод PORTAL при записи или назовите его администратору. Скидка действует на все услуги первичного приёма, кроме лабораторной диагностики. Не суммируется с другими акциями.'
+            desc: 'Только для посетителей портала! Предъявите промокод PORTAL при записи или назовите администратору. Скидка действует на все услуги первичного приёма, кроме лабораторной диагностики. Не суммируется с другими акциями.'
         },
         2: {
-            img: 'https://avatars.mds.yandex.net/get-altay/9895050/2a00000192a735f80e868fadebd42e19bbad/XXXL',
+            img: 'https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL',
             title: 'Бесплатная консультация косметолога',
-            desc: 'Получите профессиональную консультацию врача-косметолога абсолютно бесплатно. В ходе консультации вам подберут индивидуальную программу ухода. Акция действует для новых пациентов по предварительной записи.'
+            desc: 'Профессиональная консультация врача-косметолога бесплатно. Вам подберут индивидуальную программу ухода. Акция для новых пациентов по предварительной записи.'
+        },
+        3: {
+            img: 'https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL',
+            title: 'Комплексное обследование со скидкой 15%',
+            desc: 'Пройдите полное обследование организма по специальной цене. Включает консультации узких специалистов и лабораторные анализы. Экономия до 5000 рублей.'
+        },
+        4: {
+            img: 'https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL',
+            title: 'Счастливые часы: скидка 10%',
+            desc: 'При посещении клиники с 9:00 до 11:00 в будние дни вы получаете скидку 10% на все процедуры (кроме лаборатории). Отличный повод начать день с заботы о себе!'
         }
     };
 
