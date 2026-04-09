@@ -70,50 +70,38 @@
             });
 
             partnersData.forEach(partner => {
-                // Настройки кастомной иконки с логотипом
-                const options = {
-                    iconLayout: 'default#image',
-                    iconImageHref: partner.logo,
-                    iconImageSize: [48, 48],                // размер логотипа
-                    iconImageOffset: [-24, -24],            // точка привязки в центре изображения
-                    iconImageClipRect: [[0, 0], [48, 48]],  // обрезка по размеру
-                    iconShape: {
-                        type: 'Circle',
-                        coordinates: [24, 24],
-                        radius: 24
-                    },
-                    cursor: 'pointer',
-                    openBalloonOnClick: false,
-                    balloon: undefined
+                // Содержимое балуна с логотипом и кнопкой перехода
+                const balloonContent = `
+                    <div style="text-align:center; max-width:200px; padding:8px 0;">
+                        <img src="${partner.logo}" style="width:70px; height:70px; border-radius:50%; object-fit:cover; margin:0 auto 12px; border:2px solid #f0f0f0; display:block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="display:none; width:70px; height:70px; border-radius:50%; background:#2469F5; color:white; margin:0 auto 12px; align-items:center; justify-content:center; font-size:28px; font-weight:bold;">
+                            ${partner.name.charAt(0)}
+                        </div>
+                        <div style="font-weight:700; font-size:18px; margin-bottom:4px;">${partner.fullName || partner.name}</div>
+                        <div style="font-size:13px; color:#64748b; margin-bottom:16px;">ЖК Акварели</div>
+                        <a href="${partner.url}" style="display:inline-block; background:#2469F5; color:white; padding:10px 20px; border-radius:40px; text-decoration:none; font-weight:600; font-size:14px;">Перейти на страницу →</a>
+                    </div>
+                `;
+
+                // В properties добавляем iconCaption для отображения названия
+                const properties = {
+                    balloonContent: balloonContent,
+                    iconCaption: partner.name
                 };
 
-                const properties = {
-                    iconCaption: partner.name   // текст под иконкой
+                const options = {
+                    preset: 'islands#blueCircleDotIcon',
+                    iconColor: '#2469F5'
                 };
 
                 const placemark = new ymaps.Placemark(partner.coords, properties, options);
-                
-                // Клик — переход на страницу партнёра
-                placemark.events.add('click', function(e) {
-                    if (partner.url && partner.url !== '#') {
-                        window.location.href = partner.url;
-                    } else {
-                        alert('Страница партнёра появится позже.');
-                    }
-                });
-
                 myMap.geoObjects.add(placemark);
             });
 
-            // Автомасштабирование
             if (partnersData.length > 0) {
-                myMap.setBounds(myMap.geoObjects.getBounds(), {
-                    checkZoomRange: true,
-                    zoomMargin: 50
-                });
+                myMap.setBounds(myMap.geoObjects.getBounds(), { checkZoomRange: true, zoomMargin: 50 });
             }
 
-            // Легенда внизу
             const legend = document.getElementById('legend');
             legend.innerHTML = partnersData.map(p => `
                 <a href="${p.url}" class="legend-item" onclick="if('${p.url}' === '#') { alert('Страница появится позже.'); return false; }">
