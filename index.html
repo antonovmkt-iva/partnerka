@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Биометрия — Локальный портал</title>
+    
+    <!-- Подключаем Font Awesome для векторных иконок соцсетей -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
         * {
             box-sizing: border-box;
@@ -118,23 +122,61 @@
             color: #2563eb;
             text-decoration: none;
         }
-        .btn {
-            display: inline-block;
-            background: #f8fafc;
-            border: 1px solid #dde7f0;
-            border-radius: 60px;
-            padding: 12px 18px;
-            font-weight: 500;
-            color: #1e293b;
-            margin-right: 8px;
-            margin-bottom: 8px;
-            text-decoration: none;
-            transition: 0.15s;
+        /* --- НОВЫЕ СТИЛИ ДЛЯ КНОПОК СОЦСЕТЕЙ --- */
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin: 15px 0 5px;
         }
-        .btn-primary {
-            background: #2e7d32;
-            border-color: #2e7d32;
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
             color: white;
+            transition: 0.15s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .social-btn i {
+            font-size: 20px;
+        }
+        .social-btn.telegram {
+            background: #26A5E4;
+        }
+        .social-btn.vk {
+            background: #0077FF;
+        }
+        /* --- СТИЛИ ДЛЯ БЛОКА АКЦИЙ (УВЕЛИЧЕННЫЕ) --- */
+        .offer-grid {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 8px 0 16px;
+        }
+        .offer-card {
+            flex: 0 0 260px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid #eef3f8;
+            background: white;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+        .offer-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .offer-label {
+            padding: 16px;
+            font-weight: 600;
+            font-size: 16px;
+            background: #fafdfa;
         }
         .map-widget {
             border-radius: 20px;
@@ -142,35 +184,14 @@
             margin: 12px 0;
             border: 1px solid #eef3f8;
         }
+        /* --- ОБНОВЛЁННЫЙ ВИДЖЕТ ОТЗЫВОВ (ВЫСОТА УВЕЛИЧЕНА ДЛЯ ЧИТАЕМОСТИ) --- */
         .reviews-widget {
             border-radius: 20px;
-            overflow: hidden;
-            height: 400px;
+            overflow-y: auto;
+            height: 600px;
             position: relative;
             margin: 12px 0;
-        }
-        .offer-grid {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding: 8px 0 16px;
-        }
-        .offer-card {
-            flex: 0 0 200px;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid #eef3f8;
-            background: white;
-        }
-        .offer-card img {
-            width: 100%;
-            height: 130px;
-            object-fit: cover;
-        }
-        .offer-label {
-            padding: 12px;
-            font-weight: 500;
-            font-size: 14px;
+            border: 1px solid #e2e8f0;
         }
         .video-container {
             position: relative;
@@ -219,16 +240,16 @@
                 <div style="color: #64748b; margin: 6px 0 4px;">Доктор Маркова Д. А.</div>
                 <div>⭐ 4.9 (по отзывам Яндекс)</div>
             </div>
-            <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" style="width: 70px; height: 70px; border-radius: 20px; object-fit: cover;">
+            <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" style="width: 70px; height: 70px; border-radius: 20px; object-fit: cover;" alt="Логотип клиники">
         </div>
 
         <!-- Галерея фото -->
         <div style="margin-top: 20px;">
             <div class="section-title">📸 Фото клиники</div>
             <div class="gallery">
-                <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" alt="Интерьер">
-                <img src="https://avatars.mds.yandex.net/get-altay/19555209/2a0000019bb6ef55db8fb43cd658ad112455/XXXL" alt="Процедурный кабинет">
-                <img src="https://avatars.mds.yandex.net/get-altay/16888214/2a00000198e20240de9ed436f9bebd368d3e/XXXL" alt="Зона ожидания">
+                <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" alt="Интерьер" loading="lazy">
+                <img src="https://avatars.mds.yandex.net/get-altay/19555209/2a0000019bb6ef55db8fb43cd658ad112455/XXXL" alt="Процедурный кабинет" loading="lazy">
+                <img src="https://avatars.mds.yandex.net/get-altay/16888214/2a00000198e20240de9ed436f9bebd368d3e/XXXL" alt="Зона ожидания" loading="lazy">
             </div>
         </div>
 
@@ -255,31 +276,32 @@
                 <div class="info-value"><a href="https://biometriaclinic.ru/" target="_blank">biometriaclinic.ru</a></div>
             </div>
         </div>
-        <div class="info-row">
-            <div class="info-icon">💬</div>
-            <div class="info-content">
-                <div class="info-label">Соцсети</div>
-                <div class="info-value">
-                    <a href="https://t.me/biometriaclinic_drmarkova" target="_blank" class="btn">📱 Telegram</a>
-                    <a href="https://vk.com/biometria_dr.markova" target="_blank" class="btn">📘 ВКонтакте</a>
-                </div>
-            </div>
+        
+        <!-- НОВЫЙ БЛОК: Кнопки соцсетей с реальными логотипами -->
+        <div class="section-title">💬 Социальные сети</div>
+        <div class="social-links">
+            <a href="https://t.me/biometriaclinic_drmarkova" target="_blank" class="social-btn telegram">
+                <i class="fab fa-telegram-plane"></i> Telegram
+            </a>
+            <a href="https://vk.com/biometria_dr.markova" target="_blank" class="social-btn vk">
+                <i class="fab fa-vk"></i> ВКонтакте
+            </a>
         </div>
 
         <!-- Карта Яндекс -->
         <div class="section-title">🗺️ Как добраться</div>
         <div class="map-widget">
-            <iframe src="https://yandex.ru/map-widget/v1/org/biometriya_doktora_markovoy_d_a_/232175363349/?ll=37.854027%2C55.786885&z=16" width="100%" height="300" frameborder="0" allowfullscreen="true"></iframe>
+            <iframe src="https://yandex.ru/map-widget/v1/org/biometriya_doktora_markovoy_d_a_/232175363349/?ll=37.854027%2C55.786885&z=16" width="100%" height="300" frameborder="0" allowfullscreen></iframe>
         </div>
         <a href="https://yandex.ru/maps/-/CPrBi02d" target="_blank" style="font-size:14px;">Открыть в Яндекс.Картах →</a>
 
         <!-- Видео -->
         <div class="section-title">🎥 Видео о клинике</div>
         <div class="video-container">
-            <iframe src="https://vk.com/video_ext.php?oid=-221195170&id=456239060&hash=ваш_хэш_если_требуется" allow="encrypted-media; fullscreen; picture-in-picture" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://vk.com/video_ext.php?oid=-221195170&id=456239060" allow="encrypted-media; fullscreen; picture-in-picture" frameborder="0" allowfullscreen></iframe>
         </div>
 
-        <!-- Акции (закрытые предложения) -->
+        <!-- УВЕЛИЧЕННЫЕ АКЦИИ НА ПЕРВОМ ПЛАНЕ -->
         <div class="section-title">🔥 Только для своих (акции портала)</div>
         <div class="offer-grid">
             <div class="offer-card">
@@ -292,10 +314,10 @@
             </div>
         </div>
 
-        <!-- Виджет с отзывами Яндекс -->
+        <!-- Виджет с отзывами Яндекс (с увеличенной областью просмотра) -->
         <div class="section-title">⭐ Отзывы пациентов</div>
         <div class="reviews-widget">
-            <iframe style="width:100%;height:100%;border:1px solid #e6e6e6;border-radius:8px;" src="https://yandex.ru/maps-reviews-widget/232175363349?comments"></iframe>
+            <iframe style="width:100%;height:100%;border:none;" src="https://yandex.ru/maps-reviews-widget/232175363349?comments" loading="lazy"></iframe>
         </div>
         <a href="https://yandex.ru/maps/org/biometriya_doktora_markovoy_d_a_/232175363349/reviews/" target="_blank" style="font-size:14px;">Читать все отзывы →</a>
 
@@ -303,7 +325,7 @@
         <div class="qr-note">
             <div style="display:flex; align-items:center; gap:16px;">
                 <div style="background:white; padding:8px; border-radius:16px;">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://antonovmkt-iva.github.io/sochi/" alt="QR на портал" width="80" height="80">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://antonovmkt-iva.github.io/partnerek/" alt="QR на портал" width="80" height="80">
                 </div>
                 <div>
                     <strong>Покажите этот QR на ресепшене</strong><br>
