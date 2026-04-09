@@ -77,6 +77,19 @@
             object-fit: cover;
             border: 1px solid #e2e8f0;
         }
+        /* Стили для fallback в легенде */
+        .legend-fallback {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #2469F5;
+            color: white;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://api-maps.yandex.ru/2.1/?apikey=2ed2cd33-8e60-4e05-8441-0dba3d23aa60&lang=ru_RU" type="text/javascript"></script>
@@ -124,67 +137,110 @@
                 controls: ['zoomControl', 'fullscreenControl']
             });
 
+            // Кастомный макет метки: круглое изображение + подпись
+            const customLayout = ymaps.templateLayoutFactory.createClass(
+                '<div class="custom-placemark">' +
+                    '<div class="custom-placemark-image-wrapper">' +
+                        '<img src="{{ properties.logo }}" class="custom-placemark-image" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+                        '<div class="custom-placemark-fallback" style="display:none;">{{ properties.fallbackLetter }}</div>' +
+                    '</div>' +
+                    '<div class="custom-placemark-caption">{{ properties.name }}</div>' +
+                '</div>'
+            );
+
             partnersData.forEach(partner => {
-                // Свойства метки (всплывающее окно отключено, оставляем пустым или минимальным)
                 const properties = {
-                    // balloonContent отключён, чтобы не мешал переходу
-                    iconCaption: partner.name
+                    name: partner.name,
+                    logo: partner.logo,
+                    fallbackLetter: partner.name.charAt(0).toUpperCase(),
+                    url: partner.url
                 };
 
-                // Опции круглой метки с логотипом
                 const options = {
-                    iconLayout: 'default#imageWithContent',
-                    iconImageHref: partner.logo,
-                    iconImageSize: [48, 48],
-                    iconImageOffset: [-24, -48],
-                    iconImageClipRect: [[0, 0], [48, 48]],
-                    iconContentOffset: [0, 56],
-                    iconContentLayout: `
-                        <div style="
-                            color: #1e293b; 
-                            font-weight: 600; 
-                            font-size: 13px; 
-                            text-shadow: 0 1px 3px white;
-                            white-space: nowrap;
-                            background: rgba(255,255,255,0.8);
-                            padding: 4px 10px;
-                            border-radius: 30px;
-                            backdrop-filter: blur(4px);
-                            border: 1px solid rgba(0,0,0,0.05);
-                            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-                        ">{{ properties.iconCaption }}</div>
-                    `,
+                    iconLayout: customLayout,
                     iconShape: {
                         type: 'Circle',
                         coordinates: [24, 24],
                         radius: 24
                     },
-                    // Отключаем показ балуна при клике
-                    openBalloonOnClick: false,
-                    // Курсор в виде указателя
-                    cursor: 'pointer'
+                    iconOffset: [-24, -24], // центр изображения указывает на координаты
+                    cursor: 'pointer',
+                    openBalloonOnClick: false
                 };
 
                 const placemark = new ymaps.Placemark(partner.coords, properties, options);
                 
-                // Добавляем обработчик клика для перехода на страницу партнёра
                 placemark.events.add('click', function(e) {
-                    const targetUrl = partner.url;
-                    if (targetUrl && targetUrl !== '#') {
-                        window.location.href = targetUrl;
+                    if (partner.url && partner.url !== '#') {
+                        window.location.href = partner.url;
                     } else {
-                        alert('Страница партнёра скоро появится');
+                        alert('Страница партнёра появится позже.');
                     }
                 });
 
                 myMap.geoObjects.add(placemark);
             });
 
+            // Добавляем стили для кастомной метки
+            const style = document.createElement('style');
+            style.textContent = `
+                .custom-placemark {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100px;
+                    margin-left: -50px;
+                    margin-top: -70px;
+                }
+                .custom-placemark-image-wrapper {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    border: 2px solid white;
+                    background: white;
+                    margin-bottom: 4px;
+                }
+                .custom-placemark-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                }
+                .custom-placemark-fallback {
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                    background: #2469F5;
+                    color: white;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+                .custom-placemark-caption {
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: #1e293b;
+                    text-shadow: 0 1px 2px white;
+                    background: rgba(255,255,255,0.8);
+                    padding: 4px 10px;
+                    border-radius: 30px;
+                    backdrop-filter: blur(4px);
+                    white-space: nowrap;
+                    border: 1px solid rgba(0,0,0,0.05);
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+                    margin-top: 4px;
+                }
+            `;
+            document.head.appendChild(style);
+
             // Автомасштабирование
             if (partnersData.length > 0) {
                 myMap.setBounds(myMap.geoObjects.getBounds(), {
                     checkZoomRange: true,
-                    zoomMargin: 30
+                    zoomMargin: 50
                 });
             }
 
@@ -192,7 +248,8 @@
             const legend = document.getElementById('legend');
             legend.innerHTML = partnersData.map(p => `
                 <a href="${p.url}" class="legend-item" onclick="if('${p.url}' === '#') { alert('Страница появится позже.'); return false; }">
-                    <img class="legend-logo" src="${p.logo}" alt="${p.name}">
+                    <img class="legend-logo" src="${p.logo}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="legend-fallback">${p.name.charAt(0)}</div>
                     <span>${p.name}</span>
                 </a>
             `).join('');
