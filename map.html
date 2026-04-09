@@ -5,36 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Карта партнёров · ЖК Акварели</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body, html { width: 100%; height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif; }
-        #map { width: 100%; height: 100vh; }
-        .back-btn {
-            position: absolute; top: 20px; left: 20px; z-index: 1000; background: white;
-            border: none; border-radius: 40px; padding: 12px 20px; font-size: 16px; font-weight: 500;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; border: 1px solid #e2e8f0;
-            color: #1e293b; text-decoration: none; display: inline-block;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        .back-btn i { margin-right: 6px; color: #2469F5; }
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+        }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: white;
+            border: none;
+            border-radius: 40px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            color: #1e293b;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .back-btn i {
+            margin-right: 6px;
+            color: #2469F5;
+        }
         .map-legend {
-            position: absolute; bottom: 30px; left: 20px; right: 20px; z-index: 1000;
-            background: white; border-radius: 30px; padding: 12px 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            display: flex; gap: 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: 30px;
+            padding: 12px 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
             border: 1px solid #f0f0f0;
         }
-        .map-legend::-webkit-scrollbar { display: none; }
-        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: #1e293b; text-decoration: none; }
-        .legend-logo { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1px solid #e2e8f0; }
+        .map-legend::-webkit-scrollbar {
+            display: none;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            text-decoration: none;
+        }
+        .legend-logo {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #e2e8f0;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=2ed2cd33-8e60-4e05-8441-0dba3d23aa60&lang=ru_RU"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=2ed2cd33-8e60-4e05-8441-0dba3d23aa60&lang=ru_RU" type="text/javascript"></script>
 </head>
 <body>
     <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Назад</a>
     <div id="map"></div>
     <div class="map-legend" id="legend"></div>
+
     <script>
         ymaps.ready(init);
 
+        // Данные партнёров (имя файла точно как в репозитории)
         const partnersData = [
             { 
                 id: 'biometria', 
@@ -42,12 +97,22 @@
                 fullName: 'Клиника Биометрия (косметология)',
                 coords: [55.786885, 37.854027], 
                 url: 'biometria.html',
-                logo: 'biometria-logo.jpg'   // локальный файл
+                logo: 'biometria-logo.JPG'   // точное имя файла с учётом регистра
             },
             { 
-                id: 'coffee', name: 'Кофе Хаус', coords: [55.790000, 37.850000], url: '#', logo: '#' },
+                id: 'coffee', 
+                name: 'Кофе Хаус', 
+                coords: [55.790000, 37.850000], 
+                url: '#',
+                logo: '#' 
+            },
             { 
-                id: 'beauty', name: 'Beauty Bar', coords: [55.780000, 37.860000], url: '#', logo: '#' }
+                id: 'beauty', 
+                name: 'Beauty Bar', 
+                coords: [55.780000, 37.860000], 
+                url: '#',
+                logo: '#' 
+            }
         ];
 
         function init() {
@@ -57,8 +122,9 @@
                 controls: ['zoomControl', 'fullscreenControl']
             });
 
+            // Кастомный макет метки (кликабельный по всей площади)
             const customLayout = ymaps.templateLayoutFactory.createClass(
-                '<div class="custom-placemark">' +
+                '<div class="custom-placemark" style="cursor: pointer;">' +
                     '<div class="custom-placemark-image-wrapper">' +
                         '<img src="{{ properties.logo }}" class="custom-placemark-image" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
                         '<div class="custom-placemark-fallback" style="display:none;">{{ properties.fallbackLetter }}</div>' +
@@ -71,21 +137,27 @@
                 const properties = {
                     name: partner.name,
                     logo: partner.logo,
-                    fallbackLetter: partner.name.charAt(0).toUpperCase(),
-                    url: partner.url
+                    fallbackLetter: partner.name.charAt(0).toUpperCase()
                 };
 
                 const options = {
                     iconLayout: customLayout,
-                    iconShape: { type: 'Circle', coordinates: [24, 24], radius: 24 },
+                    // Точка привязки — центр нижней границы логотипа (размер логотипа 48x48)
                     iconOffset: [-24, -48],
+                    // Прямоугольная хит-зона, охватывающая логотип и подпись
+                    iconShape: {
+                        type: 'Rectangle',
+                        coordinates: [[-50, -80], [50, 10]]
+                    },
                     cursor: 'pointer',
-                    openBalloonOnClick: false
+                    openBalloonOnClick: false,
+                    balloon: undefined
                 };
 
                 const placemark = new ymaps.Placemark(partner.coords, properties, options);
                 
-                placemark.events.add('click', () => {
+                // Клик — переход на страницу партнёра
+                placemark.events.add('click', function(e) {
                     if (partner.url && partner.url !== '#') {
                         window.location.href = partner.url;
                     } else {
@@ -96,39 +168,71 @@
                 myMap.geoObjects.add(placemark);
             });
 
+            // Добавляем стили для кастомной метки
             const style = document.createElement('style');
             style.textContent = `
                 .custom-placemark {
-                    display: flex; flex-direction: column; align-items: center;
-                    width: 100px; margin-left: -50px; margin-top: -70px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100px;
+                    margin-left: -50px;
+                    margin-top: -70px;
+                    pointer-events: auto;
                 }
                 .custom-placemark-image-wrapper {
-                    width: 48px; height: 48px; border-radius: 50%; overflow: hidden;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid white;
-                    background: white; margin-bottom: 4px;
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+                    border: 2px solid white;
+                    background: white;
+                    margin-bottom: 4px;
                 }
                 .custom-placemark-image {
-                    width: 100%; height: 100%; object-fit: cover; display: block;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
                 }
                 .custom-placemark-fallback {
-                    display: flex; width: 100%; height: 100%; background: #2469F5;
-                    color: white; align-items: center; justify-content: center;
-                    font-weight: bold; font-size: 20px;
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                    background: #2469F5;
+                    color: white;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    font-size: 20px;
                 }
                 .custom-placemark-caption {
-                    font-size: 12px; font-weight: 600; color: #1e293b;
-                    text-shadow: 0 1px 2px white; background: rgba(255,255,255,0.8);
-                    padding: 4px 10px; border-radius: 30px; backdrop-filter: blur(4px);
-                    white-space: nowrap; border: 1px solid rgba(0,0,0,0.05);
-                    box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-top: 4px;
+                    font-size: 13px;
+                    font-weight: 600;
+                    color: #1e293b;
+                    text-shadow: 0 1px 2px white;
+                    background: rgba(255,255,255,0.85);
+                    padding: 4px 10px;
+                    border-radius: 30px;
+                    backdrop-filter: blur(4px);
+                    white-space: nowrap;
+                    border: 1px solid rgba(0,0,0,0.05);
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+                    margin-top: 4px;
                 }
             `;
             document.head.appendChild(style);
 
+            // Автомасштабирование
             if (partnersData.length > 0) {
-                myMap.setBounds(myMap.geoObjects.getBounds(), { checkZoomRange: true, zoomMargin: 50 });
+                myMap.setBounds(myMap.geoObjects.getBounds(), {
+                    checkZoomRange: true,
+                    zoomMargin: 50
+                });
             }
 
+            // Легенда внизу
             const legend = document.getElementById('legend');
             legend.innerHTML = partnersData.map(p => `
                 <a href="${p.url}" class="legend-item" onclick="if('${p.url}' === '#') { alert('Страница появится позже.'); return false; }">
