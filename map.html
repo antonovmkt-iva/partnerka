@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Карта партнёров · ЖК Акварели</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+        }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: white;
+            border: none;
+            border-radius: 40px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            color: #1e293b;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .back-btn i {
+            margin-right: 6px;
+            color: #2469F5;
+        }
+        .map-legend {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: 30px;
+            padding: 12px 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            border: 1px solid #f0f0f0;
+        }
+        .map-legend::-webkit-scrollbar {
+            display: none;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            text-decoration: none;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2469F5;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=2ed2cd33-8e60-4e05-8441-0dba3d23aa60&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Назад</a>
+    <div id="map"></div>
+    <div class="map-legend" id="legend"></div>
+
+    <script>
+        ymaps.ready(init);
+
+        // Данные партнёров (синхронизированы с главной страницей)
+        const partnersData = [
+            { 
+                id: 'biometria', 
+                name: 'Клиника Биометрия', 
+                coords: [55.786885, 37.854027], 
+                url: 'biometria.html',
+                category: 'med',
+                color: '#2469F5'
+            },
+            { 
+                id: 'coffee', 
+                name: 'Кофе Хаус', 
+                coords: [55.790000, 37.850000], 
+                url: '#',
+                category: 'food',
+                color: '#ff8c00'
+            },
+            { 
+                id: 'beauty', 
+                name: 'Beauty Bar', 
+                coords: [55.780000, 37.860000], 
+                url: '#',
+                category: 'beauty',
+                color: '#e83e8c'
+            }
+        ];
+
+        function init() {
+            // Создаём карту, центрируем по первому партнёру (или по среднему)
+            const center = [55.786885, 37.854027];
+            
+            const myMap = new ymaps.Map('map', {
+                center: center,
+                zoom: 14,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+
+            // Добавляем метки
+            partnersData.forEach(partner => {
+                const placemark = new ymaps.Placemark(partner.coords, {
+                    balloonContentHeader: `<strong>${partner.name}</strong>`,
+                    balloonContentBody: `<a href="${partner.url}">Перейти на страницу →</a>`,
+                    balloonContentFooter: 'ЖК Акварели'
+                }, {
+                    preset: 'islands#circleDotIcon',
+                    iconColor: partner.color || '#2469F5'
+                });
+                myMap.geoObjects.add(placemark);
+            });
+
+            // Устанавливаем границы карты, чтобы все метки были видны
+            if (partnersData.length > 0) {
+                myMap.setBounds(myMap.geoObjects.getBounds(), {
+                    checkZoomRange: true,
+                    zoomMargin: 30
+                });
+            }
+
+            // Строим легенду (быстрые ссылки)
+            const legend = document.getElementById('legend');
+            legend.innerHTML = partnersData.map(p => `
+                <a href="${p.url}" class="legend-item">
+                    <span class="legend-dot" style="background: ${p.color};"></span>
+                    <span>${p.name}</span>
+                </a>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
