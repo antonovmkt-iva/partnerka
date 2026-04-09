@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Биометрия — Локальный портал</title>
     
-    <!-- Подключаем Font Awesome для векторных иконок соцсетей -->
+    <!-- Font Awesome для иконок (логотипы соцсетей) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
@@ -29,10 +29,9 @@
             width: 100%;
         }
         .header {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 12px;
         }
         .back-btn {
             background: white;
@@ -45,21 +44,6 @@
             border: 1px solid #e2e8f0;
             color: #475569;
         }
-        h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: #0b3b2c;
-        }
-        .badge {
-            background: #e6f7e6;
-            color: #2e7d32;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 500;
-            display: inline-block;
-            margin-left: 8px;
-        }
         .card {
             background: white;
             border-radius: 28px;
@@ -68,21 +52,76 @@
             box-shadow: 0 12px 28px -8px rgba(0,32,20,0.06);
             border: 1px solid rgba(255,255,255,0.7);
         }
+        /* Заголовок клиники */
+        .clinic-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0b3b2c;
+            margin-bottom: 4px;
+        }
+        .clinic-subtitle {
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        /* Блок акций (увеличенный) */
+        .offer-grid {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 8px 0 16px;
+            scrollbar-width: none;
+            margin-bottom: 20px;
+        }
+        .offer-card {
+            flex: 0 0 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #eef3f8;
+            background: white;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+        .offer-card:active {
+            transform: scale(0.98);
+        }
+        .offer-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+        .offer-label {
+            padding: 16px;
+            font-weight: 600;
+            font-size: 18px;
+            background: #fafdfa;
+            line-height: 1.3;
+        }
+        /* Фотогалерея без скруглений */
         .gallery {
             display: flex;
-            gap: 8px;
+            gap: 0;
             overflow-x: auto;
-            padding: 4px 0 16px;
+            padding: 0 0 16px;
             scrollbar-width: none;
+            margin: 0 -20px; /* компенсация отступов карточки, чтобы фото прилегали к краям */
+            padding-left: 20px;
         }
         .gallery img {
-            width: 140px;
-            height: 100px;
+            width: 160px;
+            height: 120px;
             object-fit: cover;
-            border-radius: 20px;
             flex-shrink: 0;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            border: 1px solid #edf2f7;
+            border-radius: 0;
+            border: none;
         }
         .section-title {
             font-size: 18px;
@@ -122,11 +161,11 @@
             color: #2563eb;
             text-decoration: none;
         }
-        /* --- НОВЫЕ СТИЛИ ДЛЯ КНОПОК СОЦСЕТЕЙ --- */
+        /* Кнопки соцсетей */
         .social-links {
             display: flex;
             gap: 12px;
-            margin: 15px 0 5px;
+            margin: 5px 0 20px;
         }
         .social-btn {
             display: inline-flex;
@@ -151,40 +190,12 @@
         .social-btn.vk {
             background: #0077FF;
         }
-        /* --- СТИЛИ ДЛЯ БЛОКА АКЦИЙ (УВЕЛИЧЕННЫЕ) --- */
-        .offer-grid {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            padding: 8px 0 16px;
-        }
-        .offer-card {
-            flex: 0 0 260px;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid #eef3f8;
-            background: white;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
-        }
-        .offer-card img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .offer-label {
-            padding: 16px;
-            font-weight: 600;
-            font-size: 16px;
-            background: #fafdfa;
-        }
         .map-widget {
             border-radius: 20px;
             overflow: hidden;
             margin: 12px 0;
             border: 1px solid #eef3f8;
         }
-        /* --- ОБНОВЛЁННЫЙ ВИДЖЕТ ОТЗЫВОВ (ВЫСОТА УВЕЛИЧЕНА ДЛЯ ЧИТАЕМОСТИ) --- */
         .reviews-widget {
             border-radius: 20px;
             overflow-y: auto;
@@ -223,38 +234,119 @@
             font-size: 14px;
             border-left: 4px solid #eab308;
         }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 32px;
+            max-width: 480px;
+            width: 100%;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            position: relative;
+            animation: fadeScale 0.2s;
+        }
+        @keyframes fadeScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px; right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #94a3b8;
+        }
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            padding-right: 30px;
+        }
+        .modal-text {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #334155;
+        }
+        .modal-contact {
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 16px;
+            text-align: center;
+        }
+        .modal-btn {
+            display: inline-block;
+            background: #2e7d32;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            margin: 8px 4px;
+            text-decoration: none;
+        }
+        .modal-btn.telegram {
+            background: #26A5E4;
+        }
     </style>
 </head>
 <body>
 <div class="app">
     <div class="header">
         <button class="back-btn" onclick="history.back()">← Назад</button>
-        <h1>Биометрия <span class="badge">Закрытые акции</span></h1>
     </div>
 
     <!-- Основная карточка -->
     <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <div>
-                <div style="font-size: 22px; font-weight: 700;">Клиника Биометрия</div>
-                <div style="color: #64748b; margin: 6px 0 4px;">Доктор Маркова Д. А.</div>
-                <div>⭐ 4.9 (по отзывам Яндекс)</div>
+                <div class="clinic-title">Клиника Биометрия</div>
+                <div class="clinic-subtitle">Доктор Маркова Д. А.</div>
+                <div class="rating">
+                    <span>⭐ 4.9</span>
+                    <span style="color: #64748b;">(по отзывам Яндекс)</span>
+                </div>
             </div>
-            <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" style="width: 70px; height: 70px; border-radius: 20px; object-fit: cover;" alt="Логотип клиники">
+            <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" style="width: 70px; height: 70px; border-radius: 20px; object-fit: cover;" alt="Логотип">
         </div>
 
-        <!-- Галерея фото -->
-        <div style="margin-top: 20px;">
-            <div class="section-title">📸 Фото клиники</div>
-            <div class="gallery">
-                <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" alt="Интерьер" loading="lazy">
-                <img src="https://avatars.mds.yandex.net/get-altay/19555209/2a0000019bb6ef55db8fb43cd658ad112455/XXXL" alt="Процедурный кабинет" loading="lazy">
-                <img src="https://avatars.mds.yandex.net/get-altay/16888214/2a00000198e20240de9ed436f9bebd368d3e/XXXL" alt="Зона ожидания" loading="lazy">
+        <!-- БЛОК АКЦИЙ (перемещён сюда, увеличен) -->
+        <div class="offer-grid">
+            <!-- Акция 1 -->
+            <div class="offer-card" data-offer="1">
+                <img src="https://avatars.mds.yandex.net/get-altay/16055577/2a0000019a92019a0c231ccdfa6a20e0c22b/XXXL" alt="Акция 1">
+                <div class="offer-label">Скидка 20% на первый приём по промокоду PORTAL</div>
             </div>
+            <!-- Акция 2 -->
+            <div class="offer-card" data-offer="2">
+                <img src="https://avatars.mds.yandex.net/get-altay/9895050/2a00000192a735f80e868fadebd42e19bbad/XXXL" alt="Акция 2">
+                <div class="offer-label">Бесплатная консультация косметолога</div>
+            </div>
+        </div>
+
+        <!-- Фото клиники (без скруглений) -->
+        <div class="gallery">
+            <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" alt="Интерьер" loading="lazy">
+            <img src="https://avatars.mds.yandex.net/get-altay/19555209/2a0000019bb6ef55db8fb43cd658ad112455/XXXL" alt="Процедурный кабинет" loading="lazy">
+            <img src="https://avatars.mds.yandex.net/get-altay/16888214/2a00000198e20240de9ed436f9bebd368d3e/XXXL" alt="Зона ожидания" loading="lazy">
         </div>
 
         <!-- Контакты -->
-        <div class="section-title">📞 Контакты</div>
+        <div class="section-title">Контакты</div>
         <div class="info-row">
             <div class="info-icon">📍</div>
             <div class="info-content">
@@ -277,8 +369,7 @@
             </div>
         </div>
         
-        <!-- НОВЫЙ БЛОК: Кнопки соцсетей с реальными логотипами -->
-        <div class="section-title">💬 Социальные сети</div>
+        <!-- Соцсети (без заголовка) -->
         <div class="social-links">
             <a href="https://t.me/biometriaclinic_drmarkova" target="_blank" class="social-btn telegram">
                 <i class="fab fa-telegram-plane"></i> Telegram
@@ -288,44 +379,30 @@
             </a>
         </div>
 
-        <!-- Карта Яндекс -->
-        <div class="section-title">🗺️ Как добраться</div>
+        <!-- Карта (без заголовка) -->
         <div class="map-widget">
             <iframe src="https://yandex.ru/map-widget/v1/org/biometriya_doktora_markovoy_d_a_/232175363349/?ll=37.854027%2C55.786885&z=16" width="100%" height="300" frameborder="0" allowfullscreen></iframe>
         </div>
         <a href="https://yandex.ru/maps/-/CPrBi02d" target="_blank" style="font-size:14px;">Открыть в Яндекс.Картах →</a>
 
         <!-- Видео -->
-        <div class="section-title">🎥 Видео о клинике</div>
+        <div class="section-title">Видео о клинике</div>
         <div class="video-container">
             <iframe src="https://vk.com/video_ext.php?oid=-221195170&id=456239060" allow="encrypted-media; fullscreen; picture-in-picture" frameborder="0" allowfullscreen></iframe>
         </div>
 
-        <!-- УВЕЛИЧЕННЫЕ АКЦИИ НА ПЕРВОМ ПЛАНЕ -->
-        <div class="section-title">🔥 Только для своих (акции портала)</div>
-        <div class="offer-grid">
-            <div class="offer-card">
-                <img src="https://avatars.mds.yandex.net/get-altay/16055577/2a0000019a92019a0c231ccdfa6a20e0c22b/XXXL" alt="Акция 1">
-                <div class="offer-label">Скидка 20% на первый приём по промокоду PORTAL</div>
-            </div>
-            <div class="offer-card">
-                <img src="https://avatars.mds.yandex.net/get-altay/9895050/2a00000192a735f80e868fadebd42e19bbad/XXXL" alt="Акция 2">
-                <div class="offer-label">Бесплатная консультация косметолога</div>
-            </div>
-        </div>
-
-        <!-- Виджет с отзывами Яндекс (с увеличенной областью просмотра) -->
-        <div class="section-title">⭐ Отзывы пациентов</div>
+        <!-- Отзывы -->
+        <div class="section-title">Отзывы пациентов</div>
         <div class="reviews-widget">
             <iframe style="width:100%;height:100%;border:none;" src="https://yandex.ru/maps-reviews-widget/232175363349?comments" loading="lazy"></iframe>
         </div>
         <a href="https://yandex.ru/maps/org/biometriya_doktora_markovoy_d_a_/232175363349/reviews/" target="_blank" style="font-size:14px;">Читать все отзывы →</a>
 
-        <!-- QR-код и сарафанное радио -->
+        <!-- QR -->
         <div class="qr-note">
             <div style="display:flex; align-items:center; gap:16px;">
                 <div style="background:white; padding:8px; border-radius:16px;">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://antonovmkt-iva.github.io/partnerek/" alt="QR на портал" width="80" height="80">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://antonovmkt-iva.github.io/partnerek/" alt="QR" width="80" height="80">
                 </div>
                 <div>
                     <strong>Покажите этот QR на ресепшене</strong><br>
@@ -340,8 +417,71 @@
     </div>
 </div>
 
+<!-- Модальное окно для акций -->
+<div class="modal" id="offerModal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-text" id="modalDesc"></div>
+        <div class="modal-contact">
+            <div style="margin-bottom: 12px; font-weight: 500;">Для активации акции свяжитесь с нами:</div>
+            <a href="https://t.me/biometriaclinic_drmarkova" target="_blank" class="modal-btn telegram">
+                <i class="fab fa-telegram-plane"></i> Написать в Telegram
+            </a>
+            <a href="tel:+79998597533" class="modal-btn">
+                <i class="fas fa-phone-alt"></i> Позвонить
+            </a>
+            <p style="margin-top: 16px; font-size: 14px; color: #64748b;">Или покажите этот экран администратору в клинике.</p>
+        </div>
+    </div>
+</div>
+
 <script>
-    // Простая адаптация для Telegram WebApp
+    // Данные для модальных окон акций
+    const offers = {
+        1: {
+            title: 'Скидка 20% на первый приём',
+            desc: 'Только для посетителей нашего портала! Предъявите промокод PORTAL при записи или назовите его администратору. Скидка действует на все услуги первичного приёма, кроме лабораторной диагностики. Не суммируется с другими акциями.'
+        },
+        2: {
+            title: 'Бесплатная консультация косметолога',
+            desc: 'Получите профессиональную консультацию врача-косметолога абсолютно бесплатно. В ходе консультации вам подберут индивидуальную программу ухода. Акция действует для новых пациентов по предварительной записи.'
+        }
+    };
+
+    // Модальное окно
+    const modal = document.getElementById('offerModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+
+    function openModal(offerId) {
+        if (offers[offerId]) {
+            modalTitle.textContent = offers[offerId].title;
+            modalDesc.textContent = offers[offerId].desc;
+            modal.classList.add('active');
+        }
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+    }
+
+    // Навешиваем обработчики на карточки акций
+    document.querySelectorAll('.offer-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            const offerId = card.dataset.offer;
+            openModal(offerId);
+        });
+    });
+
+    // Закрытие по клику вне модального окна
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Telegram WebApp
     if (window.Telegram && window.Telegram.WebApp) {
         window.Telegram.WebApp.ready();
         window.Telegram.WebApp.expand();
