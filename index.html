@@ -23,11 +23,35 @@
             display: flex;
             flex-direction: column;
             padding: 20px 16px 32px;
+            opacity: 0;
+            animation: fadeInPage 0.5s ease-out forwards;
+        }
+        @keyframes fadeInPage {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         .app {
             max-width: 560px;
             margin: 0 auto;
             width: 100%;
+        }
+        
+        /* Анимация появления секций */
+        .section {
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: slideUpFade 0.4s ease-out forwards;
+        }
+        .section:nth-of-type(1) { animation-delay: 0.05s; }
+        .section:nth-of-type(2) { animation-delay: 0.1s; }
+        .section:nth-of-type(3) { animation-delay: 0.15s; }
+        .section:nth-of-type(4) { animation-delay: 0.2s; }
+        .section:nth-of-type(5) { animation-delay: 0.25s; }
+        
+        @keyframes slideUpFade {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         
         /* Шапка */
@@ -41,7 +65,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
         }
         .portal-title i {
             color: #2469F5;
@@ -51,13 +75,9 @@
             font-size: 15px;
             color: #6b7a8f;
             font-weight: 400;
-            line-height: 1.4;
+            line-height: 1.5;
         }
         
-        /* Общие стили для блоков */
-        .section {
-            margin-bottom: 32px;
-        }
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -69,14 +89,8 @@
             font-weight: 650;
             color: #000000;
         }
-        .section-header a {
-            font-size: 15px;
-            color: #2469F5;
-            text-decoration: none;
-            font-weight: 500;
-        }
         
-        /* Карусель историй (круглые аватарки) */
+        /* Карусель историй */
         .stories-carousel {
             display: flex;
             gap: 16px;
@@ -93,13 +107,13 @@
             align-items: center;
             gap: 6px;
             cursor: pointer;
-            transition: opacity 0.15s;
             flex: 0 0 auto;
             width: 72px;
             text-decoration: none;
+            transition: transform 0.2s ease;
         }
         .story-item:active {
-            opacity: 0.7;
+            transform: scale(0.95);
         }
         .story-avatar {
             width: 72px;
@@ -107,6 +121,10 @@
             border-radius: 50%;
             background: linear-gradient(135deg, #2469F5, #5b9aff);
             padding: 3px;
+            transition: box-shadow 0.2s;
+        }
+        .story-item:active .story-avatar {
+            box-shadow: 0 0 0 4px rgba(36,105,245,0.2);
         }
         .story-avatar img {
             width: 100%;
@@ -127,7 +145,7 @@
             white-space: nowrap;
         }
         
-        /* Карусель акций (большие карточки) */
+        /* Карусель акций */
         .offers-carousel {
             display: flex;
             gap: 16px;
@@ -150,10 +168,11 @@
             cursor: pointer;
             text-decoration: none;
             color: inherit;
-            transition: transform 0.15s;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .offer-card:active {
-            transform: scale(0.98);
+            transform: scale(0.98) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(36,105,245,0.08);
         }
         .offer-card img {
             width: 100%;
@@ -201,13 +220,14 @@
             padding: 16px;
             border: 1px solid rgba(0,0,0,0.04);
             cursor: pointer;
-            transition: transform 0.15s;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             text-decoration: none;
             color: inherit;
             display: block;
         }
         .map-preview:active {
-            transform: scale(0.99);
+            transform: scale(0.99) translateY(-2px);
+            box-shadow: 0 6px 16px rgba(36,105,245,0.06);
         }
         .map-image {
             width: 100%;
@@ -253,10 +273,12 @@
             text-decoration: none;
             color: inherit;
             border: 1px solid rgba(0,0,0,0.04);
-            transition: background 0.15s;
+            transition: background 0.15s, transform 0.2s, box-shadow 0.2s;
         }
         .partner-card:active {
             background: #eef2f7;
+            transform: scale(0.99);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
         .partner-logo {
             width: 56px;
@@ -299,7 +321,6 @@
             font-size: 13px;
         }
         
-        /* Вспомогательные */
         .badge-new {
             background: #2469F5;
             color: white;
@@ -313,7 +334,7 @@
 </head>
 <body>
 <div class="app">
-    <!-- Шапка -->
+    <!-- Шапка с новым описанием -->
     <div class="header">
         <div class="portal-title">
             <i class="fas fa-building"></i> 
@@ -321,35 +342,31 @@
             <span class="badge-new">Соседи</span>
         </div>
         <div class="portal-subtitle">
-            Закрытые предложения от бизнесов, которые рядом. Только для жителей комплекса.
+            Мы собрали лучшие бизнесы района, которыми пользуемся сами. Только проверенные места и уникальные предложения для своих.
         </div>
     </div>
 
     <!-- Истории партнёров -->
     <div class="section">
         <div class="stories-carousel">
-            <!-- Биометрия -->
             <a href="biometria.html" class="story-item">
                 <div class="story-avatar">
                     <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" alt="Биометрия">
                 </div>
                 <span class="story-name">Биометрия</span>
             </a>
-            <!-- Кофейня (заглушка) -->
             <div class="story-item">
                 <div class="story-avatar">
                     <img src="https://i.pinimg.com/736x/8c/3a/2e/8c3a2e7f0e4a1f5c7b6d8a9e0f1a2b3c.jpg" alt="Кофе Хаус">
                 </div>
                 <span class="story-name">Кофе Хаус</span>
             </div>
-            <!-- Салон красоты -->
             <div class="story-item">
                 <div class="story-avatar">
                     <img src="https://i.pinimg.com/736x/a1/b2/c3/d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9.jpg" alt="Beauty Bar">
                 </div>
                 <span class="story-name">Beauty Bar</span>
             </div>
-            <!-- Автомойка -->
             <div class="story-item">
                 <div class="story-avatar">
                     <img src="https://i.pinimg.com/736x/f1/e2/d3/c4b5a6f7e8d9c0a1b2c3d4e5f6a7b8c9.jpg" alt="CleanCar">
@@ -359,14 +376,12 @@
         </div>
     </div>
 
-    <!-- Горячие акции -->
+    <!-- Горячие акции (без эмодзи) -->
     <div class="section">
         <div class="section-header">
-            <h2>🔥 Горячие акции</h2>
-            <a href="#">Все 4</a>
+            <h2>Горячие акции</h2>
         </div>
         <div class="offers-carousel">
-            <!-- Акция Биометрия -->
             <a href="biometria.html" class="offer-card">
                 <img src="https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL" alt="Акция Биометрия">
                 <div class="offer-content">
@@ -374,11 +389,10 @@
                     <div class="offer-desc">Клиника Биометрия · по промокоду PORTAL</div>
                     <div class="offer-meta">
                         <span class="offer-badge">-20%</span>
-                        <span class="offer-price">от 2500 ₽</span>
+                        <span class="offer-price">от 2500 руб</span>
                     </div>
                 </div>
             </a>
-            <!-- Акция Кофейня -->
             <div class="offer-card">
                 <img src="https://i.pinimg.com/736x/a1/b2/c3/d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9.jpg" alt="Акция Кофе Хаус">
                 <div class="offer-content">
@@ -386,11 +400,10 @@
                     <div class="offer-desc">Кофе Хаус · с 8:00 до 11:00 в будни</div>
                     <div class="offer-meta">
                         <span class="offer-badge">1+1</span>
-                        <span class="offer-price">от 200 ₽</span>
+                        <span class="offer-price">от 200 руб</span>
                     </div>
                 </div>
             </div>
-            <!-- Акция Салон красоты -->
             <div class="offer-card">
                 <img src="https://i.pinimg.com/736x/f1/e2/d3/c4b5a6f7e8d9c0a1b2c3d4e5f6a7b8c9.jpg" alt="Акция Beauty Bar">
                 <div class="offer-content">
@@ -398,36 +411,33 @@
                     <div class="offer-desc">Beauty Bar · скидка 30% в первый визит</div>
                     <div class="offer-meta">
                         <span class="offer-badge">-30%</span>
-                        <span class="offer-price">от 1500 ₽</span>
+                        <span class="offer-price">от 1500 руб</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Превью карты -->
+    <!-- Превью карты (без "5 мест рядом") -->
     <div class="section">
         <a href="#" class="map-preview" onclick="alert('Здесь откроется полноэкранная карта с метками партнёров')">
             <div class="map-image">
-                <!-- Статичная карта Яндекс (можно заменить на свой ключ) -->
                 <img src="https://static-maps.yandex.ru/1.x/?ll=37.854027,55.786885&z=15&size=600,300&l=map&pt=37.854027,55.786885,pm2blm~37.850000,55.790000,pm2rdm~37.860000,55.780000,pm2gnm" alt="Карта района">
             </div>
             <div class="map-label">
                 <i class="fas fa-map-marked-alt"></i>
-                <span>Посмотреть на карте — 5 мест рядом</span>
+                <span>Посмотреть на карте</span>
                 <i class="fas fa-chevron-right" style="margin-left: auto; font-size: 14px;"></i>
             </div>
         </a>
     </div>
 
-    <!-- Все партнёры -->
+    <!-- Все партнёры (без кнопки "Все") -->
     <div class="section">
         <div class="section-header">
-            <h2>🏢 Все партнёры</h2>
-            <a href="#">Все</a>
+            <h2>Все партнёры</h2>
         </div>
         <div class="partners-list">
-            <!-- Биометрия (реальная ссылка) -->
             <a href="biometria.html" class="partner-card">
                 <img class="partner-logo" src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" alt="Биометрия">
                 <div class="partner-info">
@@ -439,7 +449,6 @@
                     </div>
                 </div>
             </a>
-            <!-- Заглушка: Кофе Хаус -->
             <div class="partner-card">
                 <img class="partner-logo" src="https://i.pinimg.com/736x/8c/3a/2e/8c3a2e7f0e4a1f5c7b6d8a9e0f1a2b3c.jpg" alt="Кофе Хаус">
                 <div class="partner-info">
@@ -451,7 +460,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Заглушка: Beauty Bar -->
             <div class="partner-card">
                 <img class="partner-logo" src="https://i.pinimg.com/736x/a1/b2/c3/d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9.jpg" alt="Beauty Bar">
                 <div class="partner-info">
@@ -473,14 +481,13 @@
 </div>
 
 <script>
-    // Просто для имитации кликов по заглушкам
+    // Заглушки для неактивных партнёров
     document.querySelectorAll('.story-item:not([href]), .offer-card:not([href]), .partner-card:not([href])').forEach(el => {
         el.addEventListener('click', () => {
             alert('Страница партнёра появится позже. А пока вы можете посмотреть пример у клиники Биометрия.');
         });
     });
     
-    // Если в Telegram WebApp
     if (window.Telegram && window.Telegram.WebApp) {
         window.Telegram.WebApp.ready();
         window.Telegram.WebApp.expand();
