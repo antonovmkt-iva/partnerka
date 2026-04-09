@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>О проекте · ЖК Акварели</title>
+    
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background: #ffffff;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 16px 32px;
+        }
+        .app {
+            max-width: 560px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Анимация появления */
+        .header, .card, .footer {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.45s cubic-bezier(0.2, 0.9, 0.1, 1), transform 0.45s cubic-bezier(0.2, 0.9, 0.1, 1);
+        }
+        .header.visible, .card.visible, .footer.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Шапка */
+        .header {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .back-btn {
+            background: white;
+            border: none;
+            border-radius: 40px;
+            padding: 10px 16px;
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .back-btn i {
+            margin-right: 6px;
+            color: #2469F5;
+        }
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0b3b2c;
+        }
+        
+        /* Карточки */
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 24px 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 12px 28px -8px rgba(0,32,20,0.06);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .section-title {
+            font-size: 20px;
+            font-weight: 650;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #0b1e3a;
+        }
+        .section-title i {
+            color: #2469F5;
+            font-size: 22px;
+        }
+        .text {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #334155;
+            margin-bottom: 16px;
+        }
+        .feature-list {
+            list-style: none;
+        }
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .feature-list i {
+            color: #2469F5;
+            font-size: 20px;
+            margin-top: 2px;
+            width: 24px;
+            text-align: center;
+        }
+        .feature-list strong {
+            font-weight: 650;
+            color: #1e293b;
+        }
+        .highlight {
+            background: #f0f6ff;
+            border-radius: 20px;
+            padding: 18px;
+            margin: 20px 0 8px;
+            text-align: center;
+            border: 1px solid rgba(36,105,245,0.1);
+        }
+        .highlight-text {
+            font-weight: 600;
+            font-size: 16px;
+            color: #1e293b;
+        }
+        .btn {
+            display: inline-block;
+            background: #2469F5;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 8px;
+            transition: background 0.15s;
+        }
+        .btn i {
+            margin-right: 8px;
+        }
+        .btn:active {
+            background: #1a58c7;
+        }
+        
+        .footer {
+            margin-top: 24px;
+            text-align: center;
+            color: #8f9eb2;
+            font-size: 13px;
+        }
+        .footer a {
+            color: #2469F5;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <!-- Шапка -->
+    <div class="header" id="header">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Назад</a>
+        <h1>О проекте</h1>
+    </div>
+
+    <!-- Что это? -->
+    <div class="card" id="whatIs">
+        <div class="section-title">
+            <i class="fas fa-store-alt"></i>
+            Что такое ЖК Акварели?
+        </div>
+        <div class="text">
+            Это локальный портал для жителей нашего комплекса. Мы собрали лучшие бизнесы района — те, которыми пользуемся сами, и договорились о скидках и уникальных предложениях только для соседей.
+        </div>
+        <div class="text">
+            Здесь нет случайных компаний — только проверенные места, которые находятся в шаговой доступности.
+        </div>
+    </div>
+
+    <!-- Преимущества -->
+    <div class="card" id="features">
+        <div class="section-title">
+            <i class="fas fa-check-circle"></i>
+            Почему это удобно?
+        </div>
+        <ul class="feature-list">
+            <li>
+                <i class="fas fa-tag"></i>
+                <span><strong>Закрытые акции</strong> — скидки до 30% в местах, куда вы и так ходите.</span>
+            </li>
+            <li>
+                <i class="fas fa-map-marked-alt"></i>
+                <span><strong>Всё рядом</strong> — интерактивная карта покажет, где находится каждый партнёр.</span>
+            </li>
+            <li>
+                <i class="fas fa-share-alt"></i>
+                <span><strong>Делитесь с соседями</strong> — отправляйте ссылки на акции, чтобы вместе экономить.</span>
+            </li>
+            <li>
+                <i class="fas fa-mobile-alt"></i>
+                <span><strong>Просто покажите экран</strong> — никаких купонов и распечаток, достаточно открыть портал на телефоне.</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Для бизнеса -->
+    <div class="card" id="forBusiness">
+        <div class="section-title">
+            <i class="fas fa-handshake"></i>
+            Для бизнеса
+        </div>
+        <div class="text">
+            Хотите, чтобы о вашем деле узнали все соседи? Мы разместим карточку с вашей акцией и приведём клиентов из соседних домов.
+        </div>
+        <div class="highlight">
+            <div class="highlight-text">Станьте партнёром портала</div>
+            <div style="font-size:14px; color:#64748b; margin:6px 0 12px;">Напишите нам в Telegram — обсудим условия.</div>
+            <a href="https://t.me/ВАШ_АККАУНТ" target="_blank" class="btn">
+                <i class="fab fa-telegram-plane"></i> Написать
+            </a>
+        </div>
+    </div>
+
+    <!-- Контакты / обратная связь -->
+    <div class="card" id="contacts">
+        <div class="section-title">
+            <i class="fas fa-comment-dots"></i>
+            Обратная связь
+        </div>
+        <div class="text">
+            Есть вопросы, идеи или заметили неточность? Свяжитесь с нами через Telegram — мы всегда рады обратной связи от соседей.
+        </div>
+        <a href="https://t.me/ВАШ_АККАУНТ" target="_blank" style="color: #2469F5; font-weight:500; text-decoration:none;">
+            <i class="fab fa-telegram-plane"></i> @ваш_аккаунт
+        </a>
+    </div>
+
+    <div class="footer" id="footer">
+        Локальный портал · ЖК Акварели · Балашиха<br>
+        © 2025 · <a href="index.html">На главную</a>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // Анимация появления
+        const elements = [
+            document.getElementById('header'),
+            document.getElementById('whatIs'),
+            document.getElementById('features'),
+            document.getElementById('forBusiness'),
+            document.getElementById('contacts'),
+            document.getElementById('footer')
+        ];
+        elements.forEach((el, i) => {
+            if (el) setTimeout(() => el.classList.add('visible'), i * 60);
+        });
+
+        // Telegram WebApp
+        if (window.Telegram && window.Telegram.WebApp) {
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.expand();
+        }
+    })();
+</script>
+</body>
+</html>
