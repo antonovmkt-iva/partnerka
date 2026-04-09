@@ -92,13 +92,13 @@
             flex: 1;
         }
 
-        /* Анимации появления (работают через .visible) */
-        .section, .header, .description-card, .testimonial-widget, .footer, .business-block {
+        /* Анимации появления */
+        .section, .header, .description-card, .footer, .business-block {
             opacity: 0;
             transform: translateY(15px);
             transition: opacity 0.45s cubic-bezier(0.2, 0.9, 0.1, 1), transform 0.45s cubic-bezier(0.2, 0.9, 0.1, 1);
         }
-        .section.visible, .header.visible, .description-card.visible, .testimonial-widget.visible, .footer.visible, .business-block.visible {
+        .section.visible, .header.visible, .description-card.visible, .footer.visible, .business-block.visible {
             opacity: 1;
             transform: translateY(0);
         }
@@ -189,7 +189,7 @@
             white-space: nowrap;
         }
 
-        /* Карусель акций */
+        /* Карусель акций (оранжевый акцент) */
         .offers-carousel {
             display: flex;
             gap: 16px;
@@ -202,17 +202,17 @@
         .offer-card {
             flex: 0 0 85%;
             scroll-snap-align: start;
-            background: #f8fafd;
+            background: #fff8f0; /* лёгкий оранжевый фон */
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            border: 1px solid #f0f0f0;
+            border: 1px solid #ffd9b3;
             cursor: pointer;
             text-decoration: none;
             color: inherit;
             transition: transform 0.15s, box-shadow 0.2s;
         }
-        .offer-card:hover { box-shadow: 0 8px 20px rgba(36,105,245,0.08); }
+        .offer-card:hover { box-shadow: 0 8px 20px rgba(255,140,0,0.08); }
         .offer-card:active { transform: scale(0.98); }
         .offer-card img {
             width: 100%;
@@ -240,7 +240,7 @@
             margin-bottom: 12px;
         }
         .offer-badge {
-            background: #2469F5;
+            background: #ff8c00; /* оранжевый */
             color: white;
             font-size: 13px;
             font-weight: 600;
@@ -387,45 +387,6 @@
             gap: 4px;
         }
 
-        /* Виджет "Соседи говорят" */
-        .testimonial-widget {
-            background: #f8fafd;
-            border-radius: 24px;
-            padding: 20px;
-            margin: 24px 0;
-            border: 1px solid #f0f0f0;
-        }
-        .testimonial-title {
-            font-weight: 650;
-            font-size: 18px;
-            margin-bottom: 16px;
-        }
-        .testimonial-carousel {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding-bottom: 8px;
-        }
-        .testimonial-item {
-            flex: 0 0 85%;
-            scroll-snap-align: start;
-            background: white;
-            border-radius: 20px;
-            padding: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-        }
-        .testimonial-text {
-            font-size: 15px;
-            line-height: 1.4;
-            margin-bottom: 8px;
-        }
-        .testimonial-author {
-            font-weight: 600;
-            font-size: 14px;
-            color: #2469F5;
-        }
-
         /* Блок "Для бизнеса" */
         .business-block {
             background: linear-gradient(135deg, #f0f6ff 0%, #ffffff 100%);
@@ -473,22 +434,8 @@
             text-decoration: none;
             font-weight: 500;
         }
-        .complaint-btn {
-            background: none;
-            border: 1px solid #e2e8f0;
-            border-radius: 30px;
-            padding: 8px 16px;
-            font-size: 14px;
-            color: #64748b;
-            cursor: pointer;
-            transition: all 0.15s;
-            margin-top: 12px;
-            display: inline-block;
-        }
-        .complaint-btn i { margin-right: 6px; color: #f59e0b; }
-        .complaint-btn:active { background: #f1f5f9; }
 
-        /* Нижняя навигация */
+        /* Нижняя навигация (уже) */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -496,10 +443,10 @@
             right: 0;
             background: white;
             border-top: 1px solid #eef2f6;
-            padding: 12px 16px 20px;
+            padding: 8px 12px 12px;
             display: flex;
             justify-content: space-around;
-            max-width: 100%;
+            max-width: 480px;  /* уже */
             margin: 0 auto;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.02);
             z-index: 100;
@@ -592,8 +539,7 @@
             border: none;
             cursor: pointer;
         }
-        .modal-btn.telegram { background: #26A5E4; }
-        .modal-btn.copy { background: #2469F5; }
+        .modal-btn.profile-btn { background: #ff8c00; }
     </style>
 </head>
 <body>
@@ -601,11 +547,11 @@
     <div class="t-row">
         <div class="t-col t-col_12 t-width_6" style="float: none; margin: 0 auto;">
             <div class="app-wrapper">
-                <!-- Заголовок -->
+                <!-- Заголовок (без "Скидки за углом" и смайлика) -->
                 <div class="header" id="mainHeader">
                     <div class="portal-title">
                         <i class="fas fa-store-alt"></i> 
-                        ЖК Акварели · Скидки за углом 🏡
+                        ЖК Акварели
                     </div>
                 </div>
 
@@ -629,7 +575,7 @@
                     </div>
                 </div>
 
-                <!-- Горячие акции -->
+                <!-- Горячие акции (оранжевый блок) -->
                 <div class="section" id="offersSection">
                     <div class="section-header"><h2>Горячие акции</h2></div>
                     <div class="offers-carousel" id="offersCarousel"></div>
@@ -647,16 +593,6 @@
                     </a>
                 </div>
 
-                <!-- Виджет "Соседи говорят" -->
-                <div class="testimonial-widget section" id="testimonialSection">
-                    <div class="testimonial-title">💬 Соседи говорят</div>
-                    <div class="testimonial-carousel">
-                        <div class="testimonial-item"><div class="testimonial-text">«Сэкономила 1000₽ на маникюре в Beauty Bar, спасибо порталу!»</div><div class="testimonial-author">Мария из 5 корпуса</div></div>
-                        <div class="testimonial-item"><div class="testimonial-text">«Попробовал комплексное обследование по акции – очень доволен.»</div><div class="testimonial-author">Алексей, корпус 3</div></div>
-                        <div class="testimonial-item"><div class="testimonial-text">«Второй кофе утром – теперь моя традиция. Рекомендую!»</div><div class="testimonial-author">Ольга, корпус 7</div></div>
-                    </div>
-                </div>
-
                 <!-- Фильтр и список партнёров -->
                 <div class="section" id="partnersSection">
                     <div class="section-header"><h2>Все партнёры</h2></div>
@@ -669,32 +605,31 @@
                     <div class="partners-list" id="partnersList"></div>
                 </div>
 
-                <!-- Блок "Для бизнеса" -->
+                <!-- Блок "Для бизнеса" (без смайлика) -->
                 <div class="business-block" id="businessBlock">
-                    <div class="business-title">🤝 Для бизнеса</div>
+                    <div class="business-title">Для бизнеса</div>
                     <div class="business-text">Хотите, чтобы о вашем деле узнали все соседи?<br>Разместим карточку с акцией и приведём клиентов из соседних домов.</div>
                     <a href="https://t.me/ВАШ_АККАУНТ" target="_blank" class="business-btn"><i class="fab fa-telegram-plane"></i> Написать в Telegram</a>
                 </div>
 
-                <!-- Футер с шерингом и жалобой -->
+                <!-- Футер (без кнопки жалобы) -->
                 <div class="footer" id="mainFooter">
                     Локальный портал · ЖК Акварели · Балашиха<br>
-                    © 2025 · <a href="#" class="share-portal-link" id="sharePortalBtn">👥 Нравится портал? Отправь ссылку соседям →</a><br>
-                    <button class="complaint-btn" onclick="alert('Книга жалоб скоро заработает. Спасибо за терпение!')"><i class="fas fa-exclamation-circle"></i> Сообщить о проблеме</button>
+                    © 2025 · <a href="#" class="share-portal-link" id="sharePortalBtn">👥 Нравится портал? Отправь ссылку соседям →</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Нижняя навигация (3 пункта) -->
+<!-- Нижняя навигация (3 пункта: Главная, Карта, О портале) -->
 <div class="bottom-nav">
     <div class="nav-item active" data-nav="home"><i class="fas fa-home"></i><span>Главная</span></div>
     <div class="nav-item" data-nav="map"><i class="fas fa-map"></i><span>Карта</span></div>
-    <div class="nav-item" data-nav="promos"><i class="fas fa-tag"></i><span>Акции</span></div>
+    <div class="nav-item" data-nav="about"><i class="fas fa-info-circle"></i><span>О портале</span></div>
 </div>
 
-<!-- Модальное окно акции -->
+<!-- Модальное окно акции (кнопка "Перейти в профиль компании") -->
 <div class="modal" id="offerModal">
     <div class="modal-content">
         <span class="modal-close" onclick="closeModal()">&times;</span>
@@ -702,7 +637,7 @@
         <div class="modal-title" id="modalTitle"></div>
         <div class="modal-text" id="modalDesc"></div>
         <div class="modal-contact">
-            <button class="modal-btn copy" id="copyPromoBtn">📋 Скопировать промокод</button>
+            <button class="modal-btn profile-btn" id="profileBtn">🏢 Перейти в профиль компании</button>
             <a href="tel:+79998597533" class="modal-btn"><i class="fas fa-phone-alt"></i> Позвонить</a>
             <p style="margin-top: 16px; font-size: 14px; color: #64748b;">Или покажите этот экран на кассе.</p>
         </div>
@@ -717,9 +652,9 @@
             { id: 'beauty', name: 'Beauty Bar', category: 'beauty', logo: '#', address: 'ул. Трубецкая, 78', action: 'Маникюр с гель-лаком -30%', url: '#' }
         ];
         const offersData = [
-            { id: 1, partner: 'biometria', title: 'Скидка 20% на первый приём', desc: 'Клиника Биометрия · по промокоду PORTAL', price: 'от 2500 руб', badge: '-20%', img: 'https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL', fullDesc: 'Только для посетителей портала! Предъявите промокод PORTAL при записи или назовите администратору. Скидка действует на все услуги первичного приёма.', promo: 'PORTAL', timeLeft: 'Осталось 5 дней' },
-            { id: 2, partner: 'coffee', title: 'Второй кофе бесплатно', desc: 'Кофе Хаус · с 8:00 до 11:00', price: 'от 200 руб', badge: '1+1', img: '#', fullDesc: 'При покупке любого кофе – второй в подарок. Акция по будням с 8 до 11.', promo: 'COFFEE2FOR1', timeLeft: 'Осталось 5 дней' },
-            { id: 3, partner: 'beauty', title: 'Маникюр + педикюр с гель-лаком', desc: 'Beauty Bar · скидка 30%', price: 'от 1500 руб', badge: '-30%', img: '#', fullDesc: 'Скидка 30% на комплекс маникюр + педикюр с гель-лаком. Для новых клиентов.', promo: 'BEAUTY30', timeLeft: 'Осталось 5 дней' }
+            { id: 1, partner: 'biometria', title: 'Скидка 20% на первый приём', desc: 'Клиника Биометрия · по промокоду PORTAL', price: 'от 2500 руб', badge: '-20%', img: 'https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL', fullDesc: 'Только для посетителей портала! Предъявите промокод PORTAL при записи или назовите администратору. Скидка действует на все услуги первичного приёма.', promo: 'PORTAL', timeLeft: 'Осталось 5 дней', partnerUrl: 'biometria.html' },
+            { id: 2, partner: 'coffee', title: 'Второй кофе бесплатно', desc: 'Кофе Хаус · с 8:00 до 11:00', price: 'от 200 руб', badge: '1+1', img: '#', fullDesc: 'При покупке любого кофе – второй в подарок. Акция по будням с 8 до 11.', promo: 'COFFEE2FOR1', timeLeft: 'Осталось 5 дней', partnerUrl: '#' },
+            { id: 3, partner: 'beauty', title: 'Маникюр + педикюр с гель-лаком', desc: 'Beauty Bar · скидка 30%', price: 'от 1500 руб', badge: '-30%', img: '#', fullDesc: 'Скидка 30% на комплекс маникюр + педикюр с гель-лаком. Для новых клиентов.', promo: 'BEAUTY30', timeLeft: 'Осталось 5 дней', partnerUrl: '#' }
         ];
 
         function renderOffers() {
@@ -744,14 +679,24 @@
                 </a>`).join('');
         }
 
-        const modal = document.getElementById('offerModal'), modalImg = document.getElementById('modalImg'), modalTitle = document.getElementById('modalTitle'), modalDesc = document.getElementById('modalDesc');
-        let currentPromo = '';
+        const modal = document.getElementById('offerModal'), modalImg = document.getElementById('modalImg'), modalTitle = document.getElementById('modalTitle'), modalDesc = document.getElementById('modalDesc'), profileBtn = document.getElementById('profileBtn');
+        let currentPartnerUrl = '';
         window.openModal = function(id) {
             const o = offersData.find(x=>x.id==id); if(!o) return;
-            modalImg.src=o.img; modalTitle.textContent=o.title; modalDesc.textContent=o.fullDesc; currentPromo=o.promo;
+            modalImg.src=o.img; modalTitle.textContent=o.title; modalDesc.textContent=o.fullDesc;
+            currentPartnerUrl = o.partnerUrl;
             modal.classList.add('active');
         };
         window.closeModal = ()=> modal.classList.remove('active');
+
+        profileBtn.addEventListener('click', ()=>{
+            if (currentPartnerUrl && currentPartnerUrl !== '#') {
+                window.location.href = currentPartnerUrl;
+            } else {
+                alert('Страница партнёра появится позже.');
+            }
+            closeModal();
+        });
 
         renderOffers(); renderPartners();
 
@@ -770,23 +715,21 @@
                 else alert('Скопируйте: '+(o?o.title:'акция')); }
         });
 
-        document.getElementById('copyPromoBtn').addEventListener('click', ()=>{
-            navigator.clipboard?.writeText(currentPromo).then(()=>alert('Промокод скопирован!')).catch(()=>alert('Промокод: '+currentPromo));
-        });
         modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
 
+        // Навигация
         document.querySelectorAll('.nav-item').forEach(i=> i.addEventListener('click', ()=>{
             const nav = i.dataset.nav;
             if(nav==='home') window.scrollTo({top:0,behavior:'smooth'});
             else if(nav==='map') document.getElementById('mapSection').scrollIntoView({behavior:'smooth'});
-            else if(nav==='promos') document.getElementById('offersSection').scrollIntoView({behavior:'smooth'});
+            else if(nav==='about') document.getElementById('descriptionCard').scrollIntoView({behavior:'smooth'});
         }));
 
         document.getElementById('sharePortalBtn').addEventListener('click', e=>{ e.preventDefault();
             window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Зацени портал со скидками для жителей ЖК Акварели!')}`, '_blank');
         });
 
-        ['mainHeader','descriptionCard','storiesSection','offersSection','mapSection','testimonialSection','partnersSection','businessBlock','mainFooter'].forEach((id,i)=>{
+        ['mainHeader','descriptionCard','storiesSection','offersSection','mapSection','partnersSection','businessBlock','mainFooter'].forEach((id,i)=>{
             const el = document.getElementById(id); if(el) setTimeout(()=>el.classList.add('visible'), i*60);
         });
 
