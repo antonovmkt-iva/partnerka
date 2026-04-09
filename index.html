@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ЖК Акварели · Локальный портал</title>
     
-    <!-- Font Awesome для иконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* === Т-Банк стиль === */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -23,12 +21,6 @@
             display: flex;
             flex-direction: column;
             padding: 20px 16px 32px;
-            opacity: 0;
-            animation: fadeInPage 0.5s ease-out forwards;
-        }
-        @keyframes fadeInPage {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
         }
         .app {
             max-width: 560px;
@@ -36,27 +28,28 @@
             width: 100%;
         }
         
-        /* Анимация появления секций */
+        /* === Анимации появления === */
         .section {
             margin-bottom: 32px;
             opacity: 0;
             transform: translateY(15px);
-            animation: slideUpFade 0.4s ease-out forwards;
+            transition: opacity 0.45s cubic-bezier(0.2, 0.9, 0.1, 1), transform 0.45s cubic-bezier(0.2, 0.9, 0.1, 1);
         }
-        .section:nth-of-type(1) { animation-delay: 0.05s; }
-        .section:nth-of-type(2) { animation-delay: 0.1s; }
-        .section:nth-of-type(3) { animation-delay: 0.15s; }
-        .section:nth-of-type(4) { animation-delay: 0.2s; }
-        .section:nth-of-type(5) { animation-delay: 0.25s; }
-        
-        @keyframes slideUpFade {
-            0% { opacity: 0; transform: translateY(15px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
-        /* Шапка */
+        /* Шапка с названием */
         .header {
-            margin-bottom: 24px;
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.45s cubic-bezier(0.2, 0.9, 0.1, 1), transform 0.45s cubic-bezier(0.2, 0.9, 0.1, 1);
+        }
+        .header.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         .portal-title {
             font-size: 28px;
@@ -65,17 +58,55 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
         .portal-title i {
             color: #2469F5;
             font-size: 24px;
         }
-        .portal-subtitle {
-            font-size: 15px;
-            color: #6b7a8f;
-            font-weight: 400;
-            line-height: 1.5;
+        
+        /* Блок с описанием */
+        .description-card {
+            background: linear-gradient(135deg, #f0f6ff 0%, #ffffff 100%);
+            border-radius: 24px;
+            padding: 24px 22px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(36,105,245,0.08);
+            box-shadow: 0 6px 14px rgba(36,105,245,0.02);
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.45s cubic-bezier(0.2, 0.9, 0.1, 1), transform 0.45s cubic-bezier(0.2, 0.9, 0.1, 1);
+        }
+        .description-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .description-icon {
+            font-size: 32px;
+            color: #2469F5;
+            margin-bottom: 12px;
+        }
+        .description-text {
+            font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1.4;
+            color: #0b1e3a;
+            letter-spacing: -0.01em;
+        }
+        .description-highlight {
+            color: #2469F5;
+            font-weight: 650;
+        }
+        
+        .badge-new {
+            background: #2469F5;
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 30px;
+            margin-left: 8px;
         }
         
         .section-header {
@@ -110,7 +141,7 @@
             flex: 0 0 auto;
             width: 72px;
             text-decoration: none;
-            transition: transform 0.2s ease;
+            transition: transform 0.15s;
         }
         .story-item:active {
             transform: scale(0.95);
@@ -121,10 +152,6 @@
             border-radius: 50%;
             background: linear-gradient(135deg, #2469F5, #5b9aff);
             padding: 3px;
-            transition: box-shadow 0.2s;
-        }
-        .story-item:active .story-avatar {
-            box-shadow: 0 0 0 4px rgba(36,105,245,0.2);
         }
         .story-avatar img {
             width: 100%;
@@ -168,10 +195,10 @@
             cursor: pointer;
             text-decoration: none;
             color: inherit;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.15s, box-shadow 0.2s;
         }
         .offer-card:active {
-            transform: scale(0.98) translateY(-2px);
+            transform: scale(0.98);
             box-shadow: 0 8px 20px rgba(36,105,245,0.08);
         }
         .offer-card img {
@@ -220,13 +247,13 @@
             padding: 16px;
             border: 1px solid rgba(0,0,0,0.04);
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.15s, box-shadow 0.2s;
             text-decoration: none;
             color: inherit;
             display: block;
         }
         .map-preview:active {
-            transform: scale(0.99) translateY(-2px);
+            transform: scale(0.99);
             box-shadow: 0 6px 16px rgba(36,105,245,0.06);
         }
         .map-image {
@@ -273,12 +300,11 @@
             text-decoration: none;
             color: inherit;
             border: 1px solid rgba(0,0,0,0.04);
-            transition: background 0.15s, transform 0.2s, box-shadow 0.2s;
+            transition: background 0.15s, transform 0.15s;
         }
         .partner-card:active {
             background: #eef2f7;
             transform: scale(0.99);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
         .partner-logo {
             width: 56px;
@@ -313,41 +339,44 @@
             font-size: 14px;
         }
         
-        /* Нижняя плашка */
         .footer {
             margin-top: 24px;
             text-align: center;
             color: #8f9eb2;
             font-size: 13px;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.45s cubic-bezier(0.2, 0.9, 0.1, 1), transform 0.45s cubic-bezier(0.2, 0.9, 0.1, 1);
         }
-        
-        .badge-new {
-            background: #2469F5;
-            color: white;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 30px;
-            margin-left: 8px;
+        .footer.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
 <div class="app">
-    <!-- Шапка с новым описанием -->
-    <div class="header">
+    <!-- Заголовок -->
+    <div class="header" id="mainHeader">
         <div class="portal-title">
             <i class="fas fa-building"></i> 
             ЖК Акварели
             <span class="badge-new">Соседи</span>
         </div>
-        <div class="portal-subtitle">
-            Мы собрали лучшие бизнесы района, которыми пользуемся сами. Только проверенные места и уникальные предложения для своих.
+    </div>
+
+    <!-- Описание отдельным красивым блоком -->
+    <div class="description-card" id="descriptionCard">
+        <div class="description-icon">
+            <i class="fas fa-star"></i>
+        </div>
+        <div class="description-text">
+            Мы собрали <span class="description-highlight">лучшие бизнесы района</span>, которыми пользуемся сами. Только проверенные места и уникальные предложения для своих.
         </div>
     </div>
 
-    <!-- Истории партнёров -->
-    <div class="section">
+    <!-- Истории -->
+    <div class="section" id="storiesSection">
         <div class="stories-carousel">
             <a href="biometria.html" class="story-item">
                 <div class="story-avatar">
@@ -376,8 +405,8 @@
         </div>
     </div>
 
-    <!-- Горячие акции (без эмодзи) -->
-    <div class="section">
+    <!-- Горячие акции -->
+    <div class="section" id="offersSection">
         <div class="section-header">
             <h2>Горячие акции</h2>
         </div>
@@ -418,8 +447,8 @@
         </div>
     </div>
 
-    <!-- Превью карты (без "5 мест рядом") -->
-    <div class="section">
+    <!-- Превью карты -->
+    <div class="section" id="mapSection">
         <a href="#" class="map-preview" onclick="alert('Здесь откроется полноэкранная карта с метками партнёров')">
             <div class="map-image">
                 <img src="https://static-maps.yandex.ru/1.x/?ll=37.854027,55.786885&z=15&size=600,300&l=map&pt=37.854027,55.786885,pm2blm~37.850000,55.790000,pm2rdm~37.860000,55.780000,pm2gnm" alt="Карта района">
@@ -432,8 +461,8 @@
         </a>
     </div>
 
-    <!-- Все партнёры (без кнопки "Все") -->
-    <div class="section">
+    <!-- Все партнёры -->
+    <div class="section" id="partnersSection">
         <div class="section-header">
             <h2>Все партнёры</h2>
         </div>
@@ -474,24 +503,46 @@
         </div>
     </div>
 
-    <div class="footer">
+    <div class="footer" id="mainFooter">
         Локальный портал · ЖК Акварели · Балашиха<br>
         © 2025 · Все предложения действуют при предъявлении QR
     </div>
 </div>
 
 <script>
-    // Заглушки для неактивных партнёров
-    document.querySelectorAll('.story-item:not([href]), .offer-card:not([href]), .partner-card:not([href])').forEach(el => {
-        el.addEventListener('click', () => {
-            alert('Страница партнёра появится позже. А пока вы можете посмотреть пример у клиники Биометрия.');
+    (function() {
+        // Функция для последовательного показа элементов с анимацией
+        const elements = [
+            document.getElementById('mainHeader'),
+            document.getElementById('descriptionCard'),
+            document.getElementById('storiesSection'),
+            document.getElementById('offersSection'),
+            document.getElementById('mapSection'),
+            document.getElementById('partnersSection'),
+            document.getElementById('mainFooter')
+        ].filter(el => el !== null);
+        
+        // Делаем все элементы видимыми с небольшой задержкой
+        elements.forEach((el, index) => {
+            setTimeout(() => {
+                el.classList.add('visible');
+            }, index * 60); // 60ms между появлениями
         });
-    });
-    
-    if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.ready();
-        window.Telegram.WebApp.expand();
-    }
+        
+        // Заглушки для неактивных партнёров
+        document.querySelectorAll('.story-item:not([href]), .offer-card:not([href]), .partner-card:not([href])').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Страница партнёра появится позже. А пока вы можете посмотреть пример у клиники Биометрия.');
+            });
+        });
+        
+        // Telegram WebApp
+        if (window.Telegram && window.Telegram.WebApp) {
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.expand();
+        }
+    })();
 </script>
 </body>
 </html>
