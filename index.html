@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ЖК Акварели · Скидки за углом</title>
+    <title>ЖК Измайловский лес · Скидки для своих</title>
     
     <!-- Font Awesome для иконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -91,12 +91,12 @@
         .app-wrapper { flex: 1; }
 
         /* Анимации появления */
-        .section, .header, .description-card, .footer, .business-block {
+        .section, .header, .description-card, .footer, .install-card, .admin-card {
             opacity: 0;
             transform: translateY(15px);
             transition: opacity 0.45s cubic-bezier(0.2, 0.9, 0.1, 1), transform 0.45s cubic-bezier(0.2, 0.9, 0.1, 1);
         }
-        .section.visible, .header.visible, .description-card.visible, .footer.visible, .business-block.visible {
+        .section.visible, .header.visible, .description-card.visible, .footer.visible, .install-card.visible, .admin-card.visible {
             opacity: 1;
             transform: translateY(0);
         }
@@ -121,9 +121,9 @@
         }
         .description-text {
             font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 500;
-            line-height: 1.4;
+            line-height: 1.5;
             color: #0b1e3a;
         }
 
@@ -251,7 +251,7 @@
             text-decoration: none;
             color: inherit;
             display: block;
-            margin-bottom: 40px; /* Увеличенный отступ */
+            margin-bottom: 40px;
         }
         .map-preview:active { transform: scale(0.99); box-shadow: 0 6px 16px rgba(36,105,245,0.06); }
         .map-image {
@@ -262,11 +262,7 @@
             overflow: hidden;
             margin-bottom: 12px;
         }
-        .map-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .map-image img { width: 100%; height: 100%; object-fit: cover; }
         .map-label {
             display: flex;
             align-items: center;
@@ -321,32 +317,60 @@
         .partner-category { font-size: 13px; color: #6b7a8f; margin-bottom: 6px; }
         .partner-action { color: #2469F5; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 4px; }
 
-        .business-block {
-            background: linear-gradient(135deg, #f0f6ff 0%, #ffffff 100%);
+        /* Карточка "Добавить на главный экран" */
+        .install-card {
+            background: #f0f6ff;
             border-radius: 24px;
-            padding: 24px 22px;
+            padding: 22px 20px;
             margin: 24px 0;
-            border: 1px solid rgba(36,105,245,0.1);
+            border: 1px solid rgba(36,105,245,0.15);
             text-align: center;
         }
-        .business-title { font-size: 22px; font-weight: 650; margin-bottom: 12px; color: #0b1e3a; }
-        .business-text { font-size: 16px; line-height: 1.5; color: #334155; margin-bottom: 20px; }
-        .business-btn {
-            display: inline-block;
+        .install-title { font-size: 20px; font-weight: 650; margin-bottom: 8px; color: #0b1e3a; }
+        .install-text { font-size: 15px; color: #334155; margin-bottom: 20px; }
+        .install-btn {
             background: #2469F5;
             color: white;
-            padding: 14px 28px;
+            border: none;
             border-radius: 60px;
+            padding: 14px 24px;
             font-weight: 600;
             font-size: 16px;
-            text-decoration: none;
-            transition: background 0.15s;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        .business-btn i { margin-right: 8px; }
-        .business-btn:active { background: #1a58c7; }
+        .install-btn i { font-size: 20px; }
+
+        /* Карточка администратора */
+        .admin-card {
+            background: #f8fafd;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .admin-title { font-weight: 650; margin-bottom: 16px; font-size: 18px; }
+        .admin-buttons { display: flex; gap: 12px; }
+        .admin-btn {
+            flex: 1;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 30px;
+            padding: 12px;
+            text-align: center;
+            color: #1e293b;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .admin-btn.telegram { background: #26A5E4; border-color: #26A5E4; color: white; }
 
         .footer { margin-top: 24px; text-align: center; color: #8f9eb2; font-size: 13px; }
-        .share-portal-link { color: #2469F5; text-decoration: none; font-weight: 500; }
 
         .bottom-nav {
             position: fixed;
@@ -469,6 +493,12 @@
             border-radius: 30px;
             backdrop-filter: blur(4px);
         }
+
+        .share-btn-block {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -478,14 +508,14 @@
             <div class="app-wrapper">
                 <div class="header" id="mainHeader">
                     <div class="portal-title">
-                        <i class="fas fa-store-alt"></i> 
-                        ЖК Акварели
+                        <i class="fas fa-tree"></i> 
+                        ЖК Измайловский лес
                     </div>
                 </div>
 
                 <div class="description-card" id="descriptionCard">
                     <div class="description-text">
-                        Скидки до 30% в местах, куда вы и так ходите. Просто покажите экран на кассе.
+                        Партнеры, услугами которых мы пользуемся сами. Мы объединились и решили дать уникальные условия вам — нашим любимым клиентам. Просто покажите экран на кассе.
                     </div>
                 </div>
 
@@ -509,7 +539,6 @@
                 <div class="section" id="mapSection">
                     <a href="map.html" class="map-preview">
                         <div class="map-image">
-                            <!-- Статичная карта с метками партнёров -->
                             <img src="https://static-maps.yandex.ru/1.x/?ll=37.854027,55.786885&z=15&size=600,300&l=map&pt=37.854027,55.786885,pm2blm~37.850000,55.790000,pm2rdm~37.860000,55.780000,pm2gnm" alt="Карта района">
                         </div>
                         <div class="map-label">
@@ -531,15 +560,32 @@
                     <div class="partners-list" id="partnersList"></div>
                 </div>
 
-                <div class="business-block" id="businessBlock">
-                    <div class="business-title">Для бизнеса</div>
-                    <div class="business-text">Хотите, чтобы о вашем деле узнали все соседи?<br>Разместим карточку с акцией и приведём клиентов из соседних домов.</div>
-                    <a href="https://t.me/ВАШ_АККАУНТ" target="_blank" class="business-btn"><i class="fab fa-telegram-plane"></i> Написать в Telegram</a>
+                <!-- Блок "Добавить на главный экран" -->
+                <div class="install-card" id="installCard">
+                    <div class="install-title">📱 Добавить на главный экран</div>
+                    <div class="install-text">Нажмите «Поделиться» → «На экран Домой», чтобы портал был всегда под рукой, как приложение.</div>
+                    <button class="install-btn" id="installBtn"><i class="fas fa-arrow-down"></i> Установить</button>
+                </div>
+
+                <!-- Блок "Поделиться порталом" -->
+                <div class="section" style="margin: 10px 0;">
+                    <button class="action-btn primary" id="sharePortalBlockBtn" style="width:100%; padding:14px;">
+                        <i class="fas fa-share-alt"></i> Поделиться порталом
+                    </button>
+                </div>
+
+                <!-- Блок "Связь с администратором портала" -->
+                <div class="admin-card" id="adminCard">
+                    <div class="admin-title">📞 Связь с администратором портала</div>
+                    <div class="admin-buttons">
+                        <a href="https://t.me/ВАШ_АККАУНТ" target="_blank" class="admin-btn telegram"><i class="fab fa-telegram-plane"></i> Telegram</a>
+                        <a href="https://mssg.me/ваш_макс" target="_blank" class="admin-btn"><i class="fas fa-comment-dots"></i> MAX</a>
+                    </div>
                 </div>
 
                 <div class="footer" id="mainFooter">
-                    Локальный портал · ЖК Акварели · Балашиха<br>
-                    © 2025 · <a href="#" class="share-portal-link" id="sharePortalBtn">👥 Нравится портал? Отправь ссылку соседям →</a>
+                    Локальный портал · ЖК Измайловский лес · Балашиха<br>
+                    © 2025
                 </div>
             </div>
         </div>
@@ -552,7 +598,7 @@
     <div class="nav-item" data-nav="about"><i class="fas fa-info-circle"></i><span>О портале</span></div>
 </div>
 
-<!-- Модальное окно акции (расширенное) -->
+<!-- Модальное окно акции -->
 <div class="modal" id="offerModal">
     <div class="modal-content">
         <span class="modal-close" onclick="closeModal()">&times;</span>
@@ -578,23 +624,20 @@
     </div>
 </div>
 
-<!-- Модальное окно "О портале" -->
+<!-- Модальное окно "О портале" (обновлённое) -->
 <div class="modal" id="aboutModal">
     <div class="modal-content">
         <span class="modal-close" onclick="closeAboutModal()">&times;</span>
-        <div style="font-size: 28px; margin-bottom: 8px;">🏡</div>
-        <div class="modal-title">О проекте ЖК Акварели</div>
+        <div class="modal-title">О проекте ЖК Измайловский лес</div>
         <div class="modal-text">
-            <p style="margin-bottom: 12px;">Это локальный портал для жителей нашего комплекса. Мы собрали лучшие бизнесы района — те, которыми пользуемся сами, и договорились о скидках и уникальных предложениях только для соседей.</p>
-            <p style="margin-bottom: 12px;"><strong>Почему это удобно?</strong><br>
-            ✓ Закрытые акции — скидки до 30%<br>
-            ✓ Всё рядом — интерактивная карта<br>
-            ✓ Делитесь с соседями<br>
-            ✓ Просто покажите экран на кассе</p>
-            <p>Хотите стать партнёром? Напишите нам в Telegram.</p>
+            <p style="margin-bottom: 16px;">Партнеры, услугами которых мы пользуемся сами. Мы объединились и решили дать уникальные условия вам — нашим любимым клиентам. Просто покажите экран на кассе.</p>
+            <p style="margin-bottom: 12px;"><strong>Что здесь есть?</strong><br>
+            ✓ Закрытые акции для жителей<br>
+            ✓ Карта с проверенными местами<br>
+            ✓ Удобный доступ с телефона</p>
         </div>
-        <div class="modal-contact">
-            <a href="https://t.me/ВАШ_АККАУНТ" target="_blank" class="modal-btn" style="background: #2469F5;"><i class="fab fa-telegram-plane"></i> Написать в Telegram</a>
+        <div class="share-btn-block">
+            <button class="action-btn primary" id="aboutShareBtn" style="padding: 14px 20px;"><i class="fas fa-share-alt"></i> Поделиться порталом</button>
         </div>
     </div>
 </div>
@@ -698,7 +741,7 @@
             
             profileBtn.onclick = () => {
                 if (offer.partnerUrl && offer.partnerUrl !== '#') window.location.href = offer.partnerUrl;
-                else alert('Страница партнёра появится позже.');
+                else alert('Страница появится позже.');
                 closeModal();
             };
             callBtn.href = `tel:${offer.phone}`;
@@ -757,6 +800,7 @@
         modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
         aboutModal.addEventListener('click', e => { if (e.target === aboutModal) closeAboutModal(); });
 
+        // Нижняя навигация
         document.querySelectorAll('.nav-item').forEach(i => i.addEventListener('click', () => {
             const nav = i.dataset.nav;
             if (nav === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -764,12 +808,33 @@
             else if (nav === 'about') aboutModal.classList.add('active');
         }));
 
-        document.getElementById('sharePortalBtn').addEventListener('click', e => {
-            e.preventDefault();
-            window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Зацени портал со скидками для жителей ЖК Акварели!')}`, '_blank');
+        // Кнопка "Поделиться порталом" (в отдельном блоке)
+        document.getElementById('sharePortalBlockBtn').addEventListener('click', () => {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Зацени портал со скидками для жителей ЖК Измайловский лес!');
+            if (navigator.share) {
+                navigator.share({ title: 'ЖК Измайловский лес', text: 'Портал с акциями для своих', url: window.location.href }).catch(() => {});
+            } else {
+                window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
+            }
         });
 
-        ['mainHeader','descriptionCard','storiesSection','offersSection','mapSection','partnersSection','businessBlock','mainFooter'].forEach((id,i) => {
+        // Кнопка "Поделиться" в модалке "О портале"
+        document.getElementById('aboutShareBtn').addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({ title: 'ЖК Измайловский лес', text: 'Локальный портал с акциями для жителей.', url: window.location.href }).catch(() => {});
+            } else {
+                window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('ЖК Измайловский лес — портал со скидками')}`, '_blank');
+            }
+        });
+
+        // Инструкция по установке (показываем подсказку)
+        document.getElementById('installBtn').addEventListener('click', () => {
+            alert('Нажмите «Поделиться» (квадратик со стрелкой в Safari) и выберите «На экран «Домой»');
+        });
+
+        // Анимации
+        ['mainHeader','descriptionCard','storiesSection','offersSection','mapSection','partnersSection','installCard','adminCard','mainFooter'].forEach((id,i) => {
             const el = document.getElementById(id);
             if (el) setTimeout(() => el.classList.add('visible'), i * 60);
         });
