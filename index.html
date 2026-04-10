@@ -240,6 +240,7 @@
         }
         .share-offer-btn:active { background: #f1f5f9; }
 
+        /* Превью карты */
         .map-preview {
             background: #f8fafd;
             border-radius: 24px;
@@ -250,10 +251,22 @@
             text-decoration: none;
             color: inherit;
             display: block;
+            margin-bottom: 40px; /* Увеличенный отступ */
         }
         .map-preview:active { transform: scale(0.99); box-shadow: 0 6px 16px rgba(36,105,245,0.06); }
-        .map-image { width: 100%; height: 140px; background: #e9eef4; border-radius: 16px; overflow: hidden; margin-bottom: 12px; }
-        .map-image img { width: 100%; height: 100%; object-fit: cover; }
+        .map-image {
+            width: 100%;
+            height: 140px;
+            background: #e9eef4;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .map-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         .map-label {
             display: flex;
             align-items: center;
@@ -263,6 +276,7 @@
             font-size: 16px;
         }
 
+        /* Фильтр чипсы */
         .filter-chips {
             display: flex;
             gap: 8px;
@@ -286,6 +300,7 @@
         }
         .chip.active { background: #2469F5; color: white; }
 
+        /* Лента организаций */
         .partners-list { display: flex; flex-direction: column; gap: 12px; }
         .partner-card {
             display: flex;
@@ -411,13 +426,6 @@
             font-size: 14px;
             border-left: 3px solid #2469F5;
         }
-        .modal-contact {
-            background: #f1f5f9;
-            border-radius: 20px;
-            padding: 16px;
-            text-align: center;
-            margin-bottom: 16px;
-        }
         .action-grid {
             display: flex;
             flex-wrap: wrap;
@@ -500,7 +508,10 @@
 
                 <div class="section" id="mapSection">
                     <a href="map.html" class="map-preview">
-                        <div class="map-image"><img src="#" alt="Карта района"></div>
+                        <div class="map-image">
+                            <!-- Статичная карта с метками партнёров -->
+                            <img src="https://static-maps.yandex.ru/1.x/?ll=37.854027,55.786885&z=15&size=600,300&l=map&pt=37.854027,55.786885,pm2blm~37.850000,55.790000,pm2rdm~37.860000,55.780000,pm2gnm" alt="Карта района">
+                        </div>
                         <div class="map-label">
                             <i class="fas fa-map-marked-alt"></i>
                             <span>Посмотреть на карте</span>
@@ -510,7 +521,7 @@
                 </div>
 
                 <div class="section" id="partnersSection">
-                    <div class="section-header"><h2>Все партнёры</h2></div>
+                    <div class="section-header"><h2>Все организации</h2></div>
                     <div class="filter-chips">
                         <button class="chip active" data-filter="all">Все</button>
                         <button class="chip" data-filter="food">🍔 Еда</button>
@@ -563,11 +574,6 @@
         <div id="beforeAfterContainer" style="display: none;">
             <div style="font-weight: 600; margin-bottom: 8px;">До и после</div>
             <div class="before-after" id="beforeAfterGallery"></div>
-        </div>
-        
-        <div class="modal-contact" id="modalContact" style="display: none;">
-            <div style="margin-bottom: 8px; font-weight: 500;">Для активации покажите этот экран</div>
-            <div style="font-size: 14px; color: #64748b;">Или свяжитесь с нами удобным способом</div>
         </div>
     </div>
 </div>
