@@ -86,11 +86,9 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 24px 0 60px;  /* уменьшен нижний отступ */
+            padding: 24px 0 60px;
         }
-        .app-wrapper {
-            flex: 1;
-        }
+        .app-wrapper { flex: 1; }
 
         /* Анимации появления */
         .section, .header, .description-card, .footer, .business-block {
@@ -103,7 +101,6 @@
             transform: translateY(0);
         }
 
-        /* Типографика и элементы */
         .portal-title {
             font-size: 26px;
             font-weight: 700;
@@ -136,13 +133,8 @@
             align-items: baseline;
             margin-bottom: 16px;
         }
-        .section-header h2 {
-            font-size: 20px;
-            font-weight: 650;
-            color: #000000;
-        }
+        .section-header h2 { font-size: 20px; font-weight: 650; color: #000000; }
 
-        /* Карусель историй */
         .stories-carousel {
             display: flex;
             gap: 16px;
@@ -189,7 +181,6 @@
             white-space: nowrap;
         }
 
-        /* Карусель акций (оранжевый акцент) */
         .offers-carousel {
             display: flex;
             gap: 16px;
@@ -214,43 +205,13 @@
         }
         .offer-card:hover { box-shadow: 0 8px 20px rgba(255,140,0,0.08); }
         .offer-card:active { transform: scale(0.98); }
-        .offer-card img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            display: block;
-        }
+        .offer-card img { width: 100%; height: 160px; object-fit: cover; display: block; }
         .offer-content { padding: 16px; }
-        .offer-title {
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 4px;
-            color: #000000;
-        }
-        .offer-desc {
-            font-size: 14px;
-            color: #6b7a8f;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-        .offer-meta {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-        .offer-badge {
-            background: #ff8c00;
-            color: white;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 30px;
-        }
-        .offer-price {
-            font-weight: 600;
-            color: #000000;
-        }
+        .offer-title { font-weight: 700; font-size: 18px; margin-bottom: 4px; color: #000000; }
+        .offer-desc { font-size: 14px; color: #6b7a8f; margin-bottom: 12px; line-height: 1.4; }
+        .offer-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .offer-badge { background: #ff8c00; color: white; font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 30px; }
+        .offer-price { font-weight: 600; color: #000000; }
         .offer-timer {
             background: #fef9c3;
             border-radius: 20px;
@@ -279,7 +240,6 @@
         }
         .share-offer-btn:active { background: #f1f5f9; }
 
-        /* Превью карты */
         .map-preview {
             background: #f8fafd;
             border-radius: 24px;
@@ -292,19 +252,8 @@
             display: block;
         }
         .map-preview:active { transform: scale(0.99); box-shadow: 0 6px 16px rgba(36,105,245,0.06); }
-        .map-image {
-            width: 100%;
-            height: 140px;
-            background: #e9eef4;
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
-        .map-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .map-image { width: 100%; height: 140px; background: #e9eef4; border-radius: 16px; overflow: hidden; margin-bottom: 12px; }
+        .map-image img { width: 100%; height: 100%; object-fit: cover; }
         .map-label {
             display: flex;
             align-items: center;
@@ -314,7 +263,6 @@
             font-size: 16px;
         }
 
-        /* Фильтр чипсы */
         .filter-chips {
             display: flex;
             gap: 8px;
@@ -336,17 +284,9 @@
             cursor: pointer;
             transition: all 0.15s;
         }
-        .chip.active {
-            background: #2469F5;
-            color: white;
-        }
+        .chip.active { background: #2469F5; color: white; }
 
-        /* Лента партнёров */
-        .partners-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .partners-list { display: flex; flex-direction: column; gap: 12px; }
         .partner-card {
             display: flex;
             align-items: center;
@@ -360,34 +300,12 @@
             transition: background 0.15s, transform 0.15s;
         }
         .partner-card:active { background: #eef2f7; transform: scale(0.99); }
-        .partner-logo {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            object-fit: cover;
-            background: white;
-        }
+        .partner-logo { width: 56px; height: 56px; border-radius: 16px; object-fit: cover; background: white; }
         .partner-info { flex: 1; }
-        .partner-name {
-            font-weight: 700;
-            font-size: 17px;
-            margin-bottom: 4px;
-        }
-        .partner-category {
-            font-size: 13px;
-            color: #6b7a8f;
-            margin-bottom: 6px;
-        }
-        .partner-action {
-            color: #2469F5;
-            font-weight: 600;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+        .partner-name { font-weight: 700; font-size: 17px; margin-bottom: 4px; }
+        .partner-category { font-size: 13px; color: #6b7a8f; margin-bottom: 6px; }
+        .partner-action { color: #2469F5; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 4px; }
 
-        /* Блок "Для бизнеса" */
         .business-block {
             background: linear-gradient(135deg, #f0f6ff 0%, #ffffff 100%);
             border-radius: 24px;
@@ -396,18 +314,8 @@
             border: 1px solid rgba(36,105,245,0.1);
             text-align: center;
         }
-        .business-title {
-            font-size: 22px;
-            font-weight: 650;
-            margin-bottom: 12px;
-            color: #0b1e3a;
-        }
-        .business-text {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #334155;
-            margin-bottom: 20px;
-        }
+        .business-title { font-size: 22px; font-weight: 650; margin-bottom: 12px; color: #0b1e3a; }
+        .business-text { font-size: 16px; line-height: 1.5; color: #334155; margin-bottom: 20px; }
         .business-btn {
             display: inline-block;
             background: #2469F5;
@@ -422,20 +330,9 @@
         .business-btn i { margin-right: 8px; }
         .business-btn:active { background: #1a58c7; }
 
-        /* Футер */
-        .footer {
-            margin-top: 24px;
-            text-align: center;
-            color: #8f9eb2;
-            font-size: 13px;
-        }
-        .share-portal-link {
-            color: #2469F5;
-            text-decoration: none;
-            font-weight: 500;
-        }
+        .footer { margin-top: 24px; text-align: center; color: #8f9eb2; font-size: 13px; }
+        .share-portal-link { color: #2469F5; text-decoration: none; font-weight: 500; }
 
-        /* Нижняя навигация (очень компактная) */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -443,7 +340,7 @@
             right: 0;
             background: white;
             border-top: 1px solid #eef2f6;
-            padding: 4px 12px 6px;   /* минимальные отступы */
+            padding: 4px 12px 6px;
             display: flex;
             justify-content: space-around;
             max-width: 480px;
@@ -502,45 +399,68 @@
             color: #94a3b8;
             z-index: 2;
         }
-        .modal-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 20px;
-            margin-bottom: 16px;
-        }
-        .modal-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            padding-right: 30px;
-        }
-        .modal-text {
-            font-size: 16px;
-            line-height: 1.5;
+        .modal-img { width: 100%; height: 180px; object-fit: cover; border-radius: 20px; margin-bottom: 16px; }
+        .modal-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; padding-right: 30px; }
+        .modal-subtitle { font-size: 15px; color: #6b7a8f; margin-bottom: 16px; line-height: 1.4; }
+        .modal-text { font-size: 16px; line-height: 1.5; margin-bottom: 16px; color: #334155; }
+        .modal-conditions {
+            background: #f8fafd;
+            border-radius: 16px;
+            padding: 14px 16px;
             margin-bottom: 20px;
-            color: #334155;
+            font-size: 14px;
+            border-left: 3px solid #2469F5;
         }
         .modal-contact {
             background: #f1f5f9;
             border-radius: 20px;
             padding: 16px;
             text-align: center;
+            margin-bottom: 16px;
         }
-        .modal-btn {
-            display: inline-block;
-            background: #2e7d32;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 60px;
-            font-weight: 600;
-            margin: 8px 4px;
+        .action-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .action-btn {
+            flex: 1 0 calc(50% - 4px);
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 30px;
+            padding: 10px 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1e293b;
+            text-align: center;
             text-decoration: none;
-            border: none;
-            cursor: pointer;
+            transition: background 0.15s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
-        .modal-btn.profile-btn { background: #ff8c00; }
-        .modal-btn.copy { background: #2469F5; }
+        .action-btn i { font-size: 16px; }
+        .action-btn:active { background: #f1f5f9; }
+        .action-btn.primary { background: #2469F5; border-color: #2469F5; color: white; }
+        .action-btn.telegram { background: #26A5E4; border-color: #26A5E4; color: white; }
+        .action-btn.whatsapp { background: #25D366; border-color: #25D366; color: white; }
+        
+        .before-after { display: flex; gap: 8px; margin-top: 8px; }
+        .before-after-item { flex: 1; border-radius: 16px; overflow: hidden; position: relative; }
+        .before-after-item img { width: 100%; height: 120px; object-fit: cover; display: block; }
+        .before-after-label {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            font-size: 12px;
+            padding: 2px 10px;
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
+        }
     </style>
 </head>
 <body>
@@ -548,7 +468,6 @@
     <div class="t-row">
         <div class="t-col t-col_12 t-width_6" style="float: none; margin: 0 auto;">
             <div class="app-wrapper">
-                <!-- Заголовок -->
                 <div class="header" id="mainHeader">
                     <div class="portal-title">
                         <i class="fas fa-store-alt"></i> 
@@ -556,14 +475,12 @@
                     </div>
                 </div>
 
-                <!-- Блок с описанием -->
                 <div class="description-card" id="descriptionCard">
                     <div class="description-text">
                         Скидки до 30% в местах, куда вы и так ходите. Просто покажите экран на кассе.
                     </div>
                 </div>
 
-                <!-- Истории партнёров -->
                 <div class="section" id="storiesSection">
                     <div class="stories-carousel">
                         <a href="biometria.html" class="story-item">
@@ -576,13 +493,11 @@
                     </div>
                 </div>
 
-                <!-- Горячие акции -->
                 <div class="section" id="offersSection">
                     <div class="section-header"><h2>Горячие акции</h2></div>
                     <div class="offers-carousel" id="offersCarousel"></div>
                 </div>
 
-                <!-- Превью карты -->
                 <div class="section" id="mapSection">
                     <a href="map.html" class="map-preview">
                         <div class="map-image"><img src="#" alt="Карта района"></div>
@@ -594,7 +509,6 @@
                     </a>
                 </div>
 
-                <!-- Фильтр и список партнёров -->
                 <div class="section" id="partnersSection">
                     <div class="section-header"><h2>Все партнёры</h2></div>
                     <div class="filter-chips">
@@ -606,14 +520,12 @@
                     <div class="partners-list" id="partnersList"></div>
                 </div>
 
-                <!-- Блок "Для бизнеса" -->
                 <div class="business-block" id="businessBlock">
                     <div class="business-title">Для бизнеса</div>
                     <div class="business-text">Хотите, чтобы о вашем деле узнали все соседи?<br>Разместим карточку с акцией и приведём клиентов из соседних домов.</div>
                     <a href="https://t.me/ВАШ_АККАУНТ" target="_blank" class="business-btn"><i class="fab fa-telegram-plane"></i> Написать в Telegram</a>
                 </div>
 
-                <!-- Футер -->
                 <div class="footer" id="mainFooter">
                     Локальный портал · ЖК Акварели · Балашиха<br>
                     © 2025 · <a href="#" class="share-portal-link" id="sharePortalBtn">👥 Нравится портал? Отправь ссылку соседям →</a>
@@ -623,24 +535,39 @@
     </div>
 </div>
 
-<!-- Нижняя навигация -->
 <div class="bottom-nav">
     <div class="nav-item active" data-nav="home"><i class="fas fa-home"></i><span>Главная</span></div>
     <div class="nav-item" data-nav="map"><i class="fas fa-map"></i><span>Карта</span></div>
     <div class="nav-item" data-nav="about"><i class="fas fa-info-circle"></i><span>О портале</span></div>
 </div>
 
-<!-- Модальное окно акции -->
+<!-- Модальное окно акции (расширенное) -->
 <div class="modal" id="offerModal">
     <div class="modal-content">
         <span class="modal-close" onclick="closeModal()">&times;</span>
         <img id="modalImg" class="modal-img" src="" alt="Акция">
         <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-subtitle" id="modalSubtitle"></div>
+        
+        <div class="action-grid">
+            <button class="action-btn primary" id="profileBtn"><i class="fas fa-user"></i> Профиль</button>
+            <a href="#" class="action-btn" id="callBtn"><i class="fas fa-phone-alt"></i> Позвонить</a>
+            <a href="#" class="action-btn telegram" id="telegramBtn"><i class="fab fa-telegram-plane"></i> Telegram</a>
+            <a href="#" class="action-btn whatsapp" id="whatsappBtn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <button class="action-btn" id="shareOfferBtn"><i class="fas fa-share-alt"></i> Поделиться</button>
+        </div>
+        
+        <div class="modal-conditions" id="modalConditions"></div>
         <div class="modal-text" id="modalDesc"></div>
-        <div class="modal-contact">
-            <button class="modal-btn profile-btn" id="profileBtn">🏢 Перейти в профиль компании</button>
-            <a href="tel:+79998597533" class="modal-btn"><i class="fas fa-phone-alt"></i> Позвонить</a>
-            <p style="margin-top: 16px; font-size: 14px; color: #64748b;">Или покажите этот экран на кассе.</p>
+        
+        <div id="beforeAfterContainer" style="display: none;">
+            <div style="font-weight: 600; margin-bottom: 8px;">До и после</div>
+            <div class="before-after" id="beforeAfterGallery"></div>
+        </div>
+        
+        <div class="modal-contact" id="modalContact" style="display: none;">
+            <div style="margin-bottom: 8px; font-weight: 500;">Для активации покажите этот экран</div>
+            <div style="font-size: 14px; color: #64748b;">Или свяжитесь с нами удобным способом</div>
         </div>
     </div>
 </div>
@@ -673,10 +600,43 @@
             { id: 'coffee', name: 'Кофе Хаус', category: 'food', logo: '#', address: 'ул. Трубецкая, 56', action: 'Второй кофе в подарок', url: '#' },
             { id: 'beauty', name: 'Beauty Bar', category: 'beauty', logo: '#', address: 'ул. Трубецкая, 78', action: 'Маникюр с гель-лаком -30%', url: '#' }
         ];
+        
         const offersData = [
-            { id: 1, partner: 'biometria', title: 'Скидка 20% на первый приём', desc: 'Клиника Биометрия · по промокоду PORTAL', price: 'от 2500 руб', badge: '-20%', img: 'biometria-logo.JPG', fullDesc: 'Только для посетителей портала! Предъявите промокод PORTAL при записи или назовите администратору. Скидка действует на все услуги первичного приёма.', promo: 'PORTAL', timeLeft: 'Осталось 5 дней', partnerUrl: 'biometria.html' },
-            { id: 2, partner: 'coffee', title: 'Второй кофе бесплатно', desc: 'Кофе Хаус · с 8:00 до 11:00', price: 'от 200 руб', badge: '1+1', img: '#', fullDesc: 'При покупке любого кофе – второй в подарок. Акция по будням с 8 до 11.', promo: 'COFFEE2FOR1', timeLeft: 'Осталось 5 дней', partnerUrl: '#' },
-            { id: 3, partner: 'beauty', title: 'Маникюр + педикюр с гель-лаком', desc: 'Beauty Bar · скидка 30%', price: 'от 1500 руб', badge: '-30%', img: '#', fullDesc: 'Скидка 30% на комплекс маникюр + педикюр с гель-лаком. Для новых клиентов.', promo: 'BEAUTY30', timeLeft: 'Осталось 5 дней', partnerUrl: '#' }
+            { 
+                id: 1, partner: 'biometria', title: 'Скидка 20% на первый приём', 
+                subtitle: 'Клиника Биометрия · по промокоду PORTAL',
+                price: 'от 2500 руб', badge: '-20%', img: 'biometria-logo.JPG', 
+                fullDesc: 'Получите профессиональную консультацию врача-косметолога и индивидуальный план ухода. Скидка действует на все услуги первичного приёма, кроме лабораторной диагностики.',
+                conditions: 'Предъявите промокод PORTAL при записи или назовите администратору. Не суммируется с другими акциями. Действует до 31.05.2025.',
+                promo: 'PORTAL', timeLeft: 'Осталось 5 дней', partnerUrl: 'biometria.html',
+                phone: '+79998597533',
+                telegram: 'https://t.me/biometriaclinic_drmarkova',
+                whatsapp: 'https://wa.me/79998597533',
+                beforeAfter: [
+                    { before: 'https://via.placeholder.com/300x200/f8d7da/000?text=До', after: 'https://via.placeholder.com/300x200/d4edda/000?text=После' }
+                ]
+            },
+            { 
+                id: 2, partner: 'coffee', title: 'Второй кофе бесплатно', 
+                subtitle: 'Кофе Хаус · с 8:00 до 11:00 в будни',
+                price: 'от 200 руб', badge: '1+1', img: '#', 
+                fullDesc: 'При покупке любого горячего напитка второй такой же — в подарок. Отличный повод встретиться с соседом!',
+                conditions: 'Акция действует по будням с 8:00 до 11:00. Не распространяется на авторские напитки и сезонное меню.',
+                promo: 'COFFEE2FOR1', timeLeft: 'Осталось 5 дней', partnerUrl: '#',
+                phone: '+79998887766', telegram: '#', whatsapp: '#', beforeAfter: []
+            },
+            { 
+                id: 3, partner: 'beauty', title: 'Маникюр + педикюр с гель-лаком', 
+                subtitle: 'Beauty Bar · скидка 30% в первый визит',
+                price: 'от 1500 руб', badge: '-30%', img: '#', 
+                fullDesc: 'Комплекс маникюр и педикюр с гель-лаковым покрытием со скидкой 30% для новых клиентов. Большой выбор цветов и дизайнов.',
+                conditions: 'Скидка предоставляется при первом посещении салона. Обязательна предварительная запись. Не суммируется с другими акциями.',
+                promo: 'BEAUTY30', timeLeft: 'Осталось 5 дней', partnerUrl: '#',
+                phone: '+79997776655', telegram: '#', whatsapp: '#',
+                beforeAfter: [
+                    { before: 'https://via.placeholder.com/300x200/e9ecef/000?text=До', after: 'https://via.placeholder.com/300x200/f8d7da/000?text=После' }
+                ]
+            }
         ];
 
         function renderOffers() {
@@ -684,12 +644,14 @@
                 <div class="offer-card" data-offer-id="${o.id}">
                     <img src="${o.img}" alt="${o.title}">
                     <div class="offer-content">
-                        <div class="offer-title">${o.title}</div><div class="offer-desc">${o.desc}</div>
+                        <div class="offer-title">${o.title}</div>
+                        <div class="offer-desc">${o.subtitle}</div>
                         <div class="offer-meta"><span class="offer-badge">${o.badge}</span><span class="offer-price">${o.price}</span></div>
                         <div class="offer-timer"><i class="far fa-clock"></i> ${o.timeLeft}</div>
                         <div class="share-offer-btn" data-offer-id="${o.id}"><i class="fas fa-share-alt"></i> Поделиться с соседом</div>
                     </div>
-                </div>`).join('');
+                </div>
+            `).join('');
         }
 
         function renderPartners(filter='all') {
@@ -698,65 +660,119 @@
                 <a href="${p.url}" class="partner-card">
                     <img class="partner-logo" src="${p.logo}">
                     <div class="partner-info"><div class="partner-name">${p.name}</div><div class="partner-category">${p.address}</div><div class="partner-action"><span>${p.action}</span><i class="fas fa-chevron-right"></i></div></div>
-                </a>`).join('');
+                </a>
+            `).join('');
         }
 
-        const modal = document.getElementById('offerModal'), modalImg = document.getElementById('modalImg'), modalTitle = document.getElementById('modalTitle'), modalDesc = document.getElementById('modalDesc'), profileBtn = document.getElementById('profileBtn');
+        const modal = document.getElementById('offerModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalConditions = document.getElementById('modalConditions');
+        const profileBtn = document.getElementById('profileBtn');
+        const callBtn = document.getElementById('callBtn');
+        const telegramBtn = document.getElementById('telegramBtn');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const shareOfferBtn = document.getElementById('shareOfferBtn');
+        const beforeAfterContainer = document.getElementById('beforeAfterContainer');
+        const beforeAfterGallery = document.getElementById('beforeAfterGallery');
         const aboutModal = document.getElementById('aboutModal');
-        let currentPartnerUrl = '';
+        let currentOffer = null;
+
         window.openModal = function(id) {
-            const o = offersData.find(x=>x.id==id); if(!o) return;
-            modalImg.src=o.img; modalTitle.textContent=o.title; modalDesc.textContent=o.fullDesc;
-            currentPartnerUrl = o.partnerUrl;
+            const offer = offersData.find(o => o.id == id);
+            if (!offer) return;
+            currentOffer = offer;
+            modalImg.src = offer.img;
+            modalTitle.textContent = offer.title;
+            modalSubtitle.textContent = offer.subtitle;
+            modalDesc.textContent = offer.fullDesc;
+            modalConditions.textContent = offer.conditions;
+            
+            profileBtn.onclick = () => {
+                if (offer.partnerUrl && offer.partnerUrl !== '#') window.location.href = offer.partnerUrl;
+                else alert('Страница партнёра появится позже.');
+                closeModal();
+            };
+            callBtn.href = `tel:${offer.phone}`;
+            telegramBtn.href = offer.telegram && offer.telegram !== '#' ? offer.telegram : '#';
+            whatsappBtn.href = offer.whatsapp && offer.whatsapp !== '#' ? offer.whatsapp : '#';
+            if (telegramBtn.href === '#') telegramBtn.addEventListener('click', e => { e.preventDefault(); alert('Telegram не указан'); });
+            if (whatsappBtn.href === '#') whatsappBtn.addEventListener('click', e => { e.preventDefault(); alert('WhatsApp не указан'); });
+            
+            shareOfferBtn.onclick = () => {
+                if (navigator.share) {
+                    navigator.share({ title: offer.title, text: `${offer.subtitle}. ${offer.conditions}`, url: window.location.href }).catch(() => {});
+                } else {
+                    alert('Скопируйте: ' + offer.title + ' - ' + offer.conditions);
+                }
+            };
+            
+            if (offer.beforeAfter && offer.beforeAfter.length > 0) {
+                beforeAfterContainer.style.display = 'block';
+                beforeAfterGallery.innerHTML = offer.beforeAfter.map(item => `
+                    <div class="before-after-item"><img src="${item.before}" alt="До"><span class="before-after-label">До</span></div>
+                    <div class="before-after-item"><img src="${item.after}" alt="После"><span class="before-after-label">После</span></div>
+                `).join('');
+            } else {
+                beforeAfterContainer.style.display = 'none';
+            }
             modal.classList.add('active');
         };
-        window.closeModal = ()=> modal.classList.remove('active');
-        window.closeAboutModal = ()=> aboutModal.classList.remove('active');
+        window.closeModal = () => modal.classList.remove('active');
+        window.closeAboutModal = () => aboutModal.classList.remove('active');
 
-        profileBtn.addEventListener('click', ()=>{
-            if (currentPartnerUrl && currentPartnerUrl !== '#') window.location.href = currentPartnerUrl;
-            else alert('Страница партнёра появится позже.');
-            closeModal();
-        });
+        renderOffers();
+        renderPartners();
 
-        renderOffers(); renderPartners();
-
-        document.querySelectorAll('.filter-chips .chip').forEach(c=> c.addEventListener('click', ()=>{
-            document.querySelectorAll('.filter-chips .chip').forEach(cc=>cc.classList.remove('active'));
+        document.querySelectorAll('.filter-chips .chip').forEach(c => c.addEventListener('click', () => {
+            document.querySelectorAll('.filter-chips .chip').forEach(cc => cc.classList.remove('active'));
             c.classList.add('active');
             renderPartners(c.dataset.filter);
         }));
 
-        document.addEventListener('click', e=>{
+        document.addEventListener('click', e => {
             const card = e.target.closest('.offer-card');
-            if(card) { const id = card.dataset.offerId; if(id) openModal(id); }
+            if (card) { const id = card.dataset.offerId; if (id) openModal(id); }
             const share = e.target.closest('.share-offer-btn');
-            if(share) { e.stopPropagation(); const o = offersData.find(o=>o.id==share.dataset.offerId);
-                if(o && navigator.share) navigator.share({title:'Скидка у дома!', text:`Глянь, скидка в ${o.title}: ${o.fullDesc}`, url:window.location.href}).catch(()=>{});
-                else alert('Скопируйте: '+(o?o.title:'акция')); }
+            if (share) {
+                e.stopPropagation();
+                const id = share.dataset.offerId;
+                const offer = offersData.find(o => o.id == id);
+                if (offer && navigator.share) {
+                    navigator.share({ title: offer.title, text: `${offer.subtitle}. ${offer.conditions}`, url: window.location.href }).catch(() => {});
+                } else {
+                    alert('Скопируйте: ' + (offer ? offer.title : 'акция'));
+                }
+            }
         });
 
-        modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
-        aboutModal.addEventListener('click', e=>{ if(e.target===aboutModal) closeAboutModal(); });
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+        aboutModal.addEventListener('click', e => { if (e.target === aboutModal) closeAboutModal(); });
 
-        // Нижняя навигация: Карта теперь ведёт на map.html
-        document.querySelectorAll('.nav-item').forEach(i=> i.addEventListener('click', ()=>{
+        document.querySelectorAll('.nav-item').forEach(i => i.addEventListener('click', () => {
             const nav = i.dataset.nav;
-            if(nav==='home') window.scrollTo({top:0,behavior:'smooth'});
-            else if(nav==='map') window.location.href = 'map.html';
-            else if(nav==='about') aboutModal.classList.add('active');
+            if (nav === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+            else if (nav === 'map') window.location.href = 'map.html';
+            else if (nav === 'about') aboutModal.classList.add('active');
         }));
 
-        document.getElementById('sharePortalBtn').addEventListener('click', e=>{ e.preventDefault();
+        document.getElementById('sharePortalBtn').addEventListener('click', e => {
+            e.preventDefault();
             window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Зацени портал со скидками для жителей ЖК Акварели!')}`, '_blank');
         });
 
-        ['mainHeader','descriptionCard','storiesSection','offersSection','mapSection','partnersSection','businessBlock','mainFooter'].forEach((id,i)=>{
-            const el = document.getElementById(id); if(el) setTimeout(()=>el.classList.add('visible'), i*60);
+        ['mainHeader','descriptionCard','storiesSection','offersSection','mapSection','partnersSection','businessBlock','mainFooter'].forEach((id,i) => {
+            const el = document.getElementById(id);
+            if (el) setTimeout(() => el.classList.add('visible'), i * 60);
         });
 
-        if (window.Telegram?.WebApp) { window.Telegram.WebApp.ready(); window.Telegram.WebApp.expand(); }
-        document.querySelectorAll('.story-item:not([href]), .partner-card[href="#"]').forEach(el=> el.addEventListener('click', e=>{ e.preventDefault(); alert('Страница появится позже.'); }));
+        if (window.Telegram?.WebApp) {
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.expand();
+        }
+        document.querySelectorAll('.story-item:not([href]), .partner-card[href="#"]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); alert('Страница появится позже.'); }));
     })();
 </script>
 </body>
