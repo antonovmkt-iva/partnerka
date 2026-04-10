@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Биометрия — Локальный портал</title>
+    <title>Биометрия · Клиника косметологии</title>
     
     <!-- Font Awesome для иконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -16,18 +16,30 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
-            background: #f5f7fb;
+            background: #ffffff;
             color: #1e293b;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 16px 12px 32px;
+            padding: 20px 16px 90px;
         }
         .app {
             max-width: 560px;
             margin: 0 auto;
             width: 100%;
         }
+        
+        /* Анимации появления */
+        .section, .header, .footer {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.45s cubic-bezier(0.2, 0.9, 0.1, 1), transform 0.45s cubic-bezier(0.2, 0.9, 0.1, 1);
+        }
+        .section.visible, .header.visible, .footer.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
         .header {
             margin-bottom: 12px;
             display: flex;
@@ -43,14 +55,18 @@
             cursor: pointer;
             border: 1px solid #e2e8f0;
             color: #475569;
+            text-decoration: none;
+            display: inline-block;
         }
+        .back-btn i { margin-right: 6px; color: #2469F5; }
+        
         .card {
             background: white;
             border-radius: 28px;
             padding: 24px 20px;
             margin-bottom: 20px;
             box-shadow: 0 12px 28px -8px rgba(0,32,20,0.06);
-            border: 1px solid rgba(255,255,255,0.7);
+            border: 1px solid rgba(0,0,0,0.04);
         }
         .clinic-title {
             font-size: 24px;
@@ -70,56 +86,7 @@
             font-weight: 500;
         }
         
-        /* Карусель акций */
-        .offer-carousel {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding: 8px 0 16px;
-            scrollbar-width: none;
-            margin-bottom: 20px;
-        }
-        .offer-carousel::-webkit-scrollbar {
-            display: none;
-        }
-        .offer-card {
-            flex: 0 0 auto;
-            width: auto;
-            height: 60vh;
-            scroll-snap-align: start;
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 10px 24px rgba(0,0,0,0.06);
-            cursor: pointer;
-            transition: transform 0.15s;
-            position: relative;
-            border: 1px solid rgba(0,0,0,0.04);
-        }
-        .offer-card:active {
-            transform: scale(0.98);
-        }
-        .offer-card img {
-            height: 100%;
-            width: auto;
-            display: block;
-            object-fit: cover;
-        }
-        .offer-label {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
-            color: white;
-            padding: 20px 16px 16px;
-            font-weight: 700;
-            font-size: 20px;
-            line-height: 1.3;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
-        }
-        
-        /* Карусель фото клиники */
+        /* Карусель фото */
         .photo-carousel {
             display: flex;
             gap: 8px;
@@ -129,9 +96,7 @@
             scrollbar-width: none;
             margin: 16px 0;
         }
-        .photo-carousel::-webkit-scrollbar {
-            display: none;
-        }
+        .photo-carousel::-webkit-scrollbar { display: none; }
         .photo-slide {
             flex: 0 0 85%;
             scroll-snap-align: center;
@@ -154,6 +119,16 @@
             align-items: center;
             gap: 8px;
         }
+        
+        /* Описание компании */
+        .company-description {
+            margin: 16px 0;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #334155;
+        }
+        
+        /* Инфо строки */
         .info-row {
             display: flex;
             align-items: center;
@@ -161,29 +136,12 @@
             padding: 10px 0;
             border-bottom: 1px solid #f1f5f9;
         }
-        .info-row:last-child {
-            border-bottom: none;
-        }
-        .info-icon {
-            width: 24px;
-            text-align: center;
-            font-size: 20px;
-        }
-        .info-content {
-            flex: 1;
-        }
-        .info-label {
-            font-size: 13px;
-            color: #64748b;
-        }
-        .info-value {
-            font-weight: 500;
-            font-size: 16px;
-        }
-        a {
-            color: #2563eb;
-            text-decoration: none;
-        }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon { width: 24px; text-align: center; font-size: 20px; color: #2469F5; }
+        .info-content { flex: 1; }
+        .info-label { font-size: 13px; color: #64748b; }
+        .info-value { font-weight: 500; font-size: 16px; }
+        
         .social-links {
             display: flex;
             gap: 12px;
@@ -203,21 +161,17 @@
             transition: 0.15s;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
-        .social-btn i {
-            font-size: 20px;
-        }
-        .social-btn.telegram {
-            background: #26A5E4;
-        }
-        .social-btn.vk {
-            background: #0077FF;
-        }
+        .social-btn i { font-size: 20px; }
+        .social-btn.telegram { background: #26A5E4; }
+        .social-btn.vk { background: #0077FF; }
+        
         .map-widget {
             border-radius: 20px;
             overflow: hidden;
             margin: 12px 0;
             border: 1px solid #eef3f8;
         }
+        
         .reviews-widget {
             border-radius: 20px;
             overflow-y: auto;
@@ -226,6 +180,7 @@
             margin: 12px 0;
             border: 1px solid #e2e8f0;
         }
+        
         .video-container {
             position: relative;
             padding-bottom: 56.25%;
@@ -236,18 +191,11 @@
         }
         .video-container iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             border: 0;
         }
-        .footer {
-            margin-top: 16px;
-            text-align: center;
-            color: #7c8ba0;
-            font-size: 13px;
-        }
+        
         .qr-note {
             background: #fef9c3;
             border-radius: 20px;
@@ -256,8 +204,64 @@
             font-size: 14px;
             border-left: 4px solid #eab308;
         }
-
-        /* Модальное окно */
+        
+        /* Кнопки-якоря меню */
+        .anchor-nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 8px 0 16px;
+            scrollbar-width: none;
+            margin-bottom: 8px;
+        }
+        .anchor-nav::-webkit-scrollbar { display: none; }
+        .anchor-btn {
+            background: #f1f5f9;
+            border: none;
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .anchor-btn.active { background: #2469F5; color: white; }
+        
+        /* Нижняя навигация (как на главной) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #eef2f6;
+            padding: 4px 12px 6px;
+            display: flex;
+            justify-content: space-around;
+            max-width: 480px;
+            margin: 0 auto;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.02);
+            z-index: 100;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            color: #6b7a8f;
+            font-size: 11px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+        .nav-item i { font-size: 20px; }
+        .nav-item.active { color: #2469F5; }
+        
+        /* Модальное окно акции */
         .modal {
             display: none;
             position: fixed;
@@ -269,9 +273,7 @@
             z-index: 1000;
             padding: 20px;
         }
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
         .modal-content {
             background: white;
             border-radius: 32px;
@@ -296,59 +298,82 @@
             color: #94a3b8;
             z-index: 2;
         }
-        .modal-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 20px;
-            margin-bottom: 16px;
-        }
-        .modal-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            padding-right: 30px;
-        }
-        .modal-text {
-            font-size: 16px;
-            line-height: 1.5;
+        .modal-img { width: 100%; height: 180px; object-fit: cover; border-radius: 20px; margin-bottom: 16px; }
+        .modal-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; padding-right: 30px; }
+        .modal-subtitle { font-size: 15px; color: #6b7a8f; margin-bottom: 16px; line-height: 1.4; }
+        .modal-text { font-size: 16px; line-height: 1.5; margin-bottom: 16px; color: #334155; }
+        .modal-conditions {
+            background: #f8fafd;
+            border-radius: 16px;
+            padding: 14px 16px;
             margin-bottom: 20px;
-            color: #334155;
+            font-size: 14px;
+            border-left: 3px solid #2469F5;
         }
         .modal-contact {
             background: #f1f5f9;
             border-radius: 20px;
             padding: 16px;
             text-align: center;
+            margin-bottom: 16px;
         }
-        .modal-btn {
-            display: inline-block;
-            background: #2e7d32;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 60px;
-            font-weight: 600;
-            margin: 8px 4px;
+        .action-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .action-btn {
+            flex: 1 0 calc(50% - 4px);
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 30px;
+            padding: 10px 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1e293b;
+            text-align: center;
             text-decoration: none;
+            transition: background 0.15s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
-        .modal-btn.telegram {
-            background: #26A5E4;
+        .action-btn i { font-size: 16px; }
+        .action-btn:active { background: #f1f5f9; }
+        .action-btn.primary { background: #2469F5; border-color: #2469F5; color: white; }
+        .action-btn.telegram { background: #26A5E4; border-color: #26A5E4; color: white; }
+        .action-btn.whatsapp { background: #25D366; border-color: #25D366; color: white; }
+        
+        .before-after { display: flex; gap: 8px; margin-top: 8px; }
+        .before-after-item { flex: 1; border-radius: 16px; overflow: hidden; position: relative; }
+        .before-after-item img { width: 100%; height: 120px; object-fit: cover; display: block; }
+        .before-after-label {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            font-size: 12px;
+            padding: 2px 10px;
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
         }
         
-        /* Виджет ВК */
-        #vk_widget {
+        .footer {
             margin-top: 16px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            border: 1px solid #eef3f8;
+            text-align: center;
+            color: #7c8ba0;
+            font-size: 13px;
         }
     </style>
 </head>
 <body>
 <div class="app">
-    <div class="header">
-        <button class="back-btn" onclick="history.back()">← Назад</button>
+    <!-- Шапка -->
+    <div class="header" id="header">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Назад</a>
     </div>
 
     <!-- Основная карточка -->
@@ -362,81 +387,86 @@
                     <span style="color: #64748b;">(по отзывам Яндекс)</span>
                 </div>
             </div>
-            <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" style="width: 70px; height: 70px; border-radius: 20px; object-fit: cover;" alt="Логотип">
+            <img src="biometria-logo.JPG" style="width: 70px; height: 70px; border-radius: 20px; object-fit: cover;" alt="Логотип">
         </div>
 
-        <!-- Карусель акций (4 шт, высота 60vh) -->
-        <div class="offer-carousel">
-            <div class="offer-card" data-offer="1">
-                <img src="https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL" alt="Акция 1">
-                <div class="offer-label">Скидка 20% на первый приём по промокоду PORTAL</div>
-            </div>
-            <div class="offer-card" data-offer="2">
-                <img src="https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL" alt="Акция 2">
-                <div class="offer-label">Бесплатная консультация косметолога</div>
-            </div>
-            <div class="offer-card" data-offer="3">
-                <img src="https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL" alt="Акция 3">
-                <div class="offer-label">Комплексное обследование со скидкой 15%</div>
-            </div>
-            <div class="offer-card" data-offer="4">
-                <img src="https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL" alt="Акция 4">
-                <div class="offer-label">Счастливые часы: скидка 10% на процедуры с 9 до 11 утра</div>
+        <!-- Меню-якоря -->
+        <div class="anchor-nav">
+            <a class="anchor-btn active" href="#offers">Акции</a>
+            <a class="anchor-btn" href="#about">О компании</a>
+            <a class="anchor-btn" href="#contacts">Контакты</a>
+            <a class="anchor-btn" href="#reviews">Отзывы</a>
+        </div>
+
+        <!-- Фото -->
+        <div id="photos">
+            <div class="photo-carousel">
+                <div class="photo-slide"><img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" alt="Фото 1" loading="lazy"></div>
+                <div class="photo-slide"><img src="https://avatars.mds.yandex.net/get-altay/19555209/2a0000019bb6ef55db8fb43cd658ad112455/XXXL" alt="Фото 2" loading="lazy"></div>
+                <div class="photo-slide"><img src="https://avatars.mds.yandex.net/get-altay/16888214/2a00000198e20240de9ed436f9bebd368d3e/XXXL" alt="Фото 3" loading="lazy"></div>
             </div>
         </div>
 
-        <!-- Карусель фото клиники -->
-        <div class="photo-carousel">
-            <div class="photo-slide">
-                <img src="https://avatars.mds.yandex.net/get-altay/16965486/2a0000019bb6ef2ef701f6fcfaa1c4e85f10/XXXL" alt="Фото 1" loading="lazy">
+        <!-- О компании (описание и время работы) -->
+        <div id="about">
+            <div class="section-title">О компании</div>
+            <div class="company-description">
+                Клиника Биометрия — это современный центр косметологии и эстетической медицины в Балашихе. Мы сочетаем передовые технологии, опытных врачей и индивидуальный подход к каждому пациенту. Наша цель — подчеркнуть вашу естественную красоту и подарить уверенность в себе.
             </div>
-            <div class="photo-slide">
-                <img src="https://avatars.mds.yandex.net/get-altay/19555209/2a0000019bb6ef55db8fb43cd658ad112455/XXXL" alt="Фото 2" loading="lazy">
+            <div class="info-row">
+                <div class="info-icon"><i class="far fa-clock"></i></div>
+                <div class="info-content">
+                    <div class="info-label">Время работы</div>
+                    <div class="info-value">Пн–Вс: 10:00 – 21:00</div>
+                </div>
             </div>
-            <div class="photo-slide">
-                <img src="https://avatars.mds.yandex.net/get-altay/16888214/2a00000198e20240de9ed436f9bebd368d3e/XXXL" alt="Фото 3" loading="lazy">
-            </div>
+        </div>
+
+        <!-- Акции (карусель) -->
+        <div id="offers">
+            <div class="section-title">🔥 Горячие акции</div>
+            <div class="offers-carousel" id="offersCarousel"></div>
         </div>
 
         <!-- Контакты -->
-        <div class="section-title">Контакты</div>
-        <div class="info-row">
-            <div class="info-icon">📍</div>
-            <div class="info-content">
-                <div class="info-label">Адрес</div>
-                <div class="info-value">Балашиха, ул. Трубецкая, 102</div>
+        <div id="contacts">
+            <div class="section-title">Контакты</div>
+            <div class="info-row">
+                <div class="info-icon">📍</div>
+                <div class="info-content">
+                    <div class="info-label">Адрес</div>
+                    <div class="info-value">Балашиха, ул. Реутовская, 27</div>
+                </div>
             </div>
-        </div>
-        <div class="info-row">
-            <div class="info-icon">📱</div>
-            <div class="info-content">
-                <div class="info-label">Телефон</div>
-                <div class="info-value"><a href="tel:+79998597533">+7 (999) 859-75-33</a></div>
+            <div class="info-row">
+                <div class="info-icon">📱</div>
+                <div class="info-content">
+                    <div class="info-label">Телефон</div>
+                    <div class="info-value"><a href="tel:+79998597533">+7 (999) 859-75-33</a></div>
+                </div>
             </div>
-        </div>
-        <div class="info-row">
-            <div class="info-icon">🌐</div>
-            <div class="info-content">
-                <div class="info-label">Сайт</div>
-                <div class="info-value"><a href="https://biometriaclinic.ru/" target="_blank">biometriaclinic.ru</a></div>
+            <div class="info-row">
+                <div class="info-icon">🌐</div>
+                <div class="info-content">
+                    <div class="info-label">Сайт</div>
+                    <div class="info-value"><a href="https://biometriaclinic.ru/" target="_blank">biometriaclinic.ru</a></div>
+                </div>
             </div>
-        </div>
-        
-        <!-- Соцсети -->
-        <div class="social-links">
-            <a href="https://t.me/biometriaclinic_drmarkova" target="_blank" class="social-btn telegram">
-                <i class="fab fa-telegram-plane"></i> Telegram
-            </a>
-            <a href="https://vk.com/biometria_dr.markova" target="_blank" class="social-btn vk">
-                <i class="fab fa-vk"></i> ВКонтакте
-            </a>
-        </div>
+            
+            <div class="social-links">
+                <a href="https://t.me/biometriaclinic_drmarkova" target="_blank" class="social-btn telegram">
+                    <i class="fab fa-telegram-plane"></i> Telegram
+                </a>
+                <a href="https://vk.com/biometria_dr.markova" target="_blank" class="social-btn vk">
+                    <i class="fab fa-vk"></i> ВКонтакте
+                </a>
+            </div>
 
-        <!-- Карта -->
-        <div class="map-widget">
-            <iframe src="https://yandex.ru/map-widget/v1/org/biometriya_doktora_markovoy_d_a_/232175363349/?ll=37.854027%2C55.786885&z=16" width="100%" height="300" frameborder="0" allowfullscreen></iframe>
+            <div class="map-widget">
+                <iframe src="https://yandex.ru/map-widget/v1/org/biometriya_doktora_markovoy_d_a_/232175363349/?ll=37.854027%2C55.786885&z=16" width="100%" height="300" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <a href="https://yandex.ru/maps/-/CPrBi02d" target="_blank" style="font-size:14px;">Открыть в Яндекс.Картах →</a>
         </div>
-        <a href="https://yandex.ru/maps/-/CPrBi02d" target="_blank" style="font-size:14px;">Открыть в Яндекс.Картах →</a>
 
         <!-- Видео -->
         <div class="section-title">Видео о клинике</div>
@@ -444,34 +474,20 @@
             <iframe src="https://vk.com/video_ext.php?oid=-221195170&id=456239060" allow="encrypted-media; fullscreen; picture-in-picture" frameborder="0" allowfullscreen></iframe>
         </div>
 
-        <!-- Отзывы Яндекс -->
-        <div class="section-title">Отзывы пациентов</div>
-        <div class="reviews-widget">
-            <iframe style="width:100%;height:100%;border:none;" src="https://yandex.ru/maps-reviews-widget/232175363349?comments" loading="lazy"></iframe>
+        <!-- Отзывы -->
+        <div id="reviews">
+            <div class="section-title">Отзывы пациентов</div>
+            <div class="reviews-widget">
+                <iframe style="width:100%;height:100%;border:none;" src="https://yandex.ru/maps-reviews-widget/232175363349?comments" loading="lazy"></iframe>
+            </div>
+            <a href="https://yandex.ru/maps/org/biometriya_doktora_markovoy_d_a_/232175363349/reviews/" target="_blank" style="font-size:14px;">Читать все отзывы →</a>
         </div>
-        <a href="https://yandex.ru/maps/org/biometriya_doktora_markovoy_d_a_/232175363349/reviews/" target="_blank" style="font-size:14px;">Читать все отзывы →</a>
-
-        <!-- Лента ВКонтакте (без заголовка) -->
-        <div id="vk_widget"></div>
-        <script type="text/javascript" src="https://vk.com/js/api/openapi.js?169"></script>
-        <script type="text/javascript">
-          (function() {
-            VK.Widgets.Group("vk_widget", {
-              mode: 3,
-              width: "auto",
-              height: 500,
-              color1: "FFFFFF",
-              color2: "000000",
-              color3: "2469F5"
-            }, "biometria_dr.markova");
-          })();
-        </script>
 
         <!-- QR -->
         <div class="qr-note">
             <div style="display:flex; align-items:center; gap:16px;">
                 <div style="background:white; padding:8px; border-radius:16px;">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://antonovmkt-iva.github.io/partnerek/" alt="QR" width="80" height="80">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://antonovmkt-iva.github.io/partnerek/biometria.html" alt="QR" width="80" height="80">
                 </div>
                 <div>
                     <strong>Покажите этот QR на ресепшене</strong><br>
@@ -482,90 +498,202 @@
     </div>
 
     <div class="footer">
-        Локальный портал · Балашиха, ЖК «Акварели» · <a href="index.html">Все партнёры</a>
+        Локальный портал · ЖК Акварели · Балашиха
     </div>
 </div>
 
-<!-- Модальное окно для акций -->
+<!-- Нижняя навигация (копия главной) -->
+<div class="bottom-nav">
+    <div class="nav-item active" data-nav="home"><i class="fas fa-home"></i><span>Главная</span></div>
+    <div class="nav-item" data-nav="map"><i class="fas fa-map"></i><span>Карта</span></div>
+    <div class="nav-item" data-nav="about"><i class="fas fa-info-circle"></i><span>О портале</span></div>
+</div>
+
+<!-- Модальное окно акции (как на главной) -->
 <div class="modal" id="offerModal">
     <div class="modal-content">
         <span class="modal-close" onclick="closeModal()">&times;</span>
         <img id="modalImg" class="modal-img" src="" alt="Акция">
         <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-subtitle" id="modalSubtitle"></div>
+        
+        <div class="action-grid">
+            <button class="action-btn primary" id="profileBtn"><i class="fas fa-user"></i> Профиль</button>
+            <a href="#" class="action-btn" id="callBtn"><i class="fas fa-phone-alt"></i> Позвонить</a>
+            <a href="#" class="action-btn telegram" id="telegramBtn"><i class="fab fa-telegram-plane"></i> Telegram</a>
+            <a href="#" class="action-btn whatsapp" id="whatsappBtn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <button class="action-btn" id="shareOfferBtn"><i class="fas fa-share-alt"></i> Поделиться</button>
+        </div>
+        
+        <div class="modal-conditions" id="modalConditions"></div>
         <div class="modal-text" id="modalDesc"></div>
-        <div class="modal-contact">
-            <div style="margin-bottom: 12px; font-weight: 500;">Для активации акции свяжитесь с нами:</div>
-            <a href="https://t.me/biometriaclinic_drmarkova" target="_blank" class="modal-btn telegram">
-                <i class="fab fa-telegram-plane"></i> Написать в Telegram
-            </a>
-            <a href="tel:+79998597533" class="modal-btn">
-                <i class="fas fa-phone-alt"></i> Позвонить
-            </a>
-            <p style="margin-top: 16px; font-size: 14px; color: #64748b;">Или покажите этот экран администратору в клинике.</p>
+        
+        <div id="beforeAfterContainer" style="display: none;">
+            <div style="font-weight: 600; margin-bottom: 8px;">До и после</div>
+            <div class="before-after" id="beforeAfterGallery"></div>
+        </div>
+        
+        <div class="modal-contact" id="modalContact" style="display: none;">
+            <div style="margin-bottom: 8px; font-weight: 500;">Для активации покажите этот экран</div>
+            <div style="font-size: 14px; color: #64748b;">Или свяжитесь с нами удобным способом</div>
         </div>
     </div>
 </div>
 
 <script>
-    // Данные для 4 акций
-    const offers = {
-        1: {
-            img: 'https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL',
-            title: 'Скидка 20% на первый приём',
-            desc: 'Только для посетителей портала! Предъявите промокод PORTAL при записи или назовите администратору. Скидка действует на все услуги первичного приёма, кроме лабораторной диагностики. Не суммируется с другими акциями.'
-        },
-        2: {
-            img: 'https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL',
-            title: 'Бесплатная консультация косметолога',
-            desc: 'Профессиональная консультация врача-косметолога бесплатно. Вам подберут индивидуальную программу ухода. Акция для новых пациентов по предварительной записи.'
-        },
-        3: {
-            img: 'https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL',
-            title: 'Комплексное обследование со скидкой 15%',
-            desc: 'Пройдите полное обследование организма по специальной цене. Включает консультации узких специалистов и лабораторные анализы. Экономия до 5000 рублей.'
-        },
-        4: {
-            img: 'https://avatars.mds.yandex.net/get-altay/16374562/2a0000019abca08b3aff4dfb34aa08076bdf/XXXL',
-            title: 'Счастливые часы: скидка 10%',
-            desc: 'При посещении клиники с 9:00 до 11:00 в будние дни вы получаете скидку 10% на все процедуры (кроме лаборатории). Отличный повод начать день с заботой о себе!'
+    (function() {
+        // Акции (только для Биометрии)
+        const offersData = [
+            { 
+                id: 1, title: 'Скидка 20% на первый приём', 
+                subtitle: 'Клиника Биометрия · по промокоду PORTAL',
+                price: 'от 2500 руб', badge: '-20%', img: 'biometria-logo.JPG', 
+                fullDesc: 'Получите профессиональную консультацию врача-косметолога и индивидуальный план ухода. Скидка действует на все услуги первичного приёма, кроме лабораторной диагностики.',
+                conditions: 'Предъявите промокод PORTAL при записи или назовите администратору. Не суммируется с другими акциями. Действует до 31.05.2025.',
+                promo: 'PORTAL', timeLeft: 'Осталось 5 дней', partnerUrl: '#',
+                phone: '+79998597533',
+                telegram: 'https://t.me/biometriaclinic_drmarkova',
+                whatsapp: 'https://wa.me/79998597533',
+                beforeAfter: [
+                    { before: 'https://via.placeholder.com/300x200/f8d7da/000?text=До', after: 'https://via.placeholder.com/300x200/d4edda/000?text=После' }
+                ]
+            },
+            { 
+                id: 2, title: 'Комплексное обследование -15%', 
+                subtitle: 'Клиника Биометрия · по промокоду HEALTH15',
+                price: 'от 3500 руб', badge: '-15%', img: 'biometria-logo.JPG', 
+                fullDesc: 'Полный чекап организма: анализы, консультации специалистов, УЗИ. Экономия до 5000 рублей.',
+                conditions: 'Акция действует при первичном обращении. Запись обязательна. Срок действия до 30.06.2025.',
+                promo: 'HEALTH15', timeLeft: 'Осталось 12 дней', partnerUrl: '#',
+                phone: '+79998597533',
+                telegram: 'https://t.me/biometriaclinic_drmarkova',
+                whatsapp: 'https://wa.me/79998597533',
+                beforeAfter: []
+            }
+        ];
+
+        // Рендер акций в карусель
+        function renderOffers() {
+            const container = document.getElementById('offersCarousel');
+            if (!container) return;
+            container.innerHTML = offersData.map(o => `
+                <div class="offer-card" data-offer-id="${o.id}" style="flex: 0 0 85%; scroll-snap-align: start; background: #fff8f0; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.02); border: 1px solid #ffd9b3; cursor: pointer; margin-right: 16px;">
+                    <img src="${o.img}" alt="${o.title}" style="width:100%; height:160px; object-fit:cover;">
+                    <div style="padding:16px;">
+                        <div style="font-weight:700; font-size:18px; margin-bottom:4px;">${o.title}</div>
+                        <div style="font-size:14px; color:#6b7a8f; margin-bottom:12px;">${o.subtitle}</div>
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                            <span style="background:#ff8c00; color:white; font-size:13px; font-weight:600; padding:4px 10px; border-radius:30px;">${o.badge}</span>
+                            <span style="font-weight:600;">${o.price}</span>
+                        </div>
+                        <div style="background:#fef9c3; border-radius:20px; padding:6px 12px; font-size:13px; font-weight:600; color:#b45309; display:inline-flex; align-items:center; gap:6px;">
+                            <i class="far fa-clock"></i> ${o.timeLeft}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         }
-    };
 
-    const modal = document.getElementById('offerModal');
-    const modalImg = document.getElementById('modalImg');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDesc = document.getElementById('modalDesc');
+        // Модальное окно акции
+        const modal = document.getElementById('offerModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalConditions = document.getElementById('modalConditions');
+        const profileBtn = document.getElementById('profileBtn');
+        const callBtn = document.getElementById('callBtn');
+        const telegramBtn = document.getElementById('telegramBtn');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const shareOfferBtn = document.getElementById('shareOfferBtn');
+        const beforeAfterContainer = document.getElementById('beforeAfterContainer');
+        const beforeAfterGallery = document.getElementById('beforeAfterGallery');
+        let currentOffer = null;
 
-    function openModal(offerId) {
-        if (offers[offerId]) {
-            modalImg.src = offers[offerId].img;
-            modalTitle.textContent = offers[offerId].title;
-            modalDesc.textContent = offers[offerId].desc;
+        window.openModal = function(id) {
+            const offer = offersData.find(o => o.id == id);
+            if (!offer) return;
+            currentOffer = offer;
+            modalImg.src = offer.img;
+            modalTitle.textContent = offer.title;
+            modalSubtitle.textContent = offer.subtitle;
+            modalDesc.textContent = offer.fullDesc;
+            modalConditions.textContent = offer.conditions;
+            
+            profileBtn.onclick = () => { alert('Вы уже на странице компании'); closeModal(); };
+            callBtn.href = `tel:${offer.phone}`;
+            telegramBtn.href = offer.telegram;
+            whatsappBtn.href = offer.whatsapp;
+            shareOfferBtn.onclick = () => {
+                if (navigator.share) {
+                    navigator.share({ title: offer.title, text: `${offer.subtitle}. ${offer.conditions}`, url: window.location.href }).catch(() => {});
+                } else {
+                    alert('Скопируйте: ' + offer.title + ' - ' + offer.conditions);
+                }
+            };
+            
+            if (offer.beforeAfter && offer.beforeAfter.length > 0) {
+                beforeAfterContainer.style.display = 'block';
+                beforeAfterGallery.innerHTML = offer.beforeAfter.map(item => `
+                    <div class="before-after-item"><img src="${item.before}" alt="До"><span class="before-after-label">До</span></div>
+                    <div class="before-after-item"><img src="${item.after}" alt="После"><span class="before-after-label">После</span></div>
+                `).join('');
+            } else {
+                beforeAfterContainer.style.display = 'none';
+            }
             modal.classList.add('active');
-        }
-    }
+        };
+        window.closeModal = () => modal.classList.remove('active');
 
-    function closeModal() {
-        modal.classList.remove('active');
-    }
+        // Инициализация
+        renderOffers();
 
-    document.querySelectorAll('.offer-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-            const offerId = card.dataset.offer;
-            openModal(offerId);
+        // Обработчики кликов по акциям
+        document.addEventListener('click', e => {
+            const card = e.target.closest('[data-offer-id]');
+            if (card) {
+                const id = card.dataset.offerId;
+                if (id) openModal(id);
+            }
         });
-    });
 
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+        // Нижняя навигация (как на главной)
+        document.querySelectorAll('.nav-item').forEach(i => i.addEventListener('click', () => {
+            const nav = i.dataset.nav;
+            if (nav === 'home') window.location.href = 'index.html';
+            else if (nav === 'map') window.location.href = 'map.html';
+            else if (nav === 'about') alert('О портале: локальные скидки для жителей ЖК Акварели');
+        }));
+
+        // Якоря меню
+        document.querySelectorAll('.anchor-btn').forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.preventDefault();
+                const targetId = btn.getAttribute('href').substring(1);
+                const targetEl = document.getElementById(targetId);
+                if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+                // Активируем кнопку
+                document.querySelectorAll('.anchor-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Анимации появления
+        ['header', 'storiesSection', 'offersSection', 'mapSection', 'partnersSection', 'businessBlock', 'mainFooter'].forEach((id,i) => {
+            const el = document.getElementById(id);
+            if (el) setTimeout(() => el.classList.add('visible'), i*60);
+        });
+        document.querySelectorAll('.section, .card, .footer').forEach((el,i) => {
+            setTimeout(() => el.classList.add('visible'), i*40);
+        });
+
+        if (window.Telegram?.WebApp) {
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.expand();
         }
-    });
-
-    if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.ready();
-        window.Telegram.WebApp.expand();
-    }
+    })();
 </script>
 </body>
 </html>
