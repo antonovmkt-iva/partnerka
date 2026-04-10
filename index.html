@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ЖК Измайловский лес · Скидки для своих</title>
+    <title>ЖК Измайловский лес · Скидки за углом</title>
     
     <!-- Font Awesome для иконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -91,12 +91,12 @@
         .app-wrapper { flex: 1; }
 
         /* Анимации появления */
-        .section, .header, .description-card, .footer, .install-card, .admin-card {
+        .section, .header, .description-card, .footer, .add-to-home-block, .admin-contact-block {
             opacity: 0;
             transform: translateY(15px);
             transition: opacity 0.45s cubic-bezier(0.2, 0.9, 0.1, 1), transform 0.45s cubic-bezier(0.2, 0.9, 0.1, 1);
         }
-        .section.visible, .header.visible, .description-card.visible, .footer.visible, .install-card.visible, .admin-card.visible {
+        .section.visible, .header.visible, .description-card.visible, .footer.visible, .add-to-home-block.visible, .admin-contact-block.visible {
             opacity: 1;
             transform: translateY(0);
         }
@@ -121,9 +121,9 @@
         }
         .description-text {
             font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 500;
-            line-height: 1.5;
+            line-height: 1.4;
             color: #0b1e3a;
         }
 
@@ -262,7 +262,11 @@
             overflow: hidden;
             margin-bottom: 12px;
         }
-        .map-image img { width: 100%; height: 100%; object-fit: cover; }
+        .map-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         .map-label {
             display: flex;
             align-items: center;
@@ -317,60 +321,57 @@
         .partner-category { font-size: 13px; color: #6b7a8f; margin-bottom: 6px; }
         .partner-action { color: #2469F5; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 4px; }
 
-        /* Карточка "Добавить на главный экран" */
-        .install-card {
-            background: #f0f6ff;
-            border-radius: 24px;
-            padding: 22px 20px;
-            margin: 24px 0;
-            border: 1px solid rgba(36,105,245,0.15);
-            text-align: center;
-        }
-        .install-title { font-size: 20px; font-weight: 650; margin-bottom: 8px; color: #0b1e3a; }
-        .install-text { font-size: 15px; color: #334155; margin-bottom: 20px; }
-        .install-btn {
-            background: #2469F5;
-            color: white;
-            border: none;
-            border-radius: 60px;
-            padding: 14px 24px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .install-btn i { font-size: 20px; }
-
-        /* Карточка администратора */
-        .admin-card {
+        /* Блок "Добавить на главный экран" (без кнопки и смайлика) */
+        .add-to-home-block {
             background: #f8fafd;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 18px 20px;
+            margin: 20px 0 10px;  /* уменьшен нижний отступ */
+            border: 1px solid #f0f0f0;
+            text-align: left;
         }
-        .admin-title { font-weight: 650; margin-bottom: 16px; font-size: 18px; }
-        .admin-buttons { display: flex; gap: 12px; }
-        .admin-btn {
-            flex: 1;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 30px;
-            padding: 12px;
-            text-align: center;
-            color: #1e293b;
-            text-decoration: none;
-            font-weight: 500;
+        .add-to-home-title {
+            font-weight: 650;
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #0b1e3a;
+        }
+        .add-to-home-text {
+            font-size: 15px;
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        /* Блок связи с администратором */
+        .admin-contact-block {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 16px 20px;
+            margin: 10px 0 20px;  /* небольшие отступы */
+            border: 1px solid #f0f0f0;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 6px;
+            justify-content: space-between;
         }
-        .admin-btn.telegram { background: #26A5E4; border-color: #26A5E4; color: white; }
+        .admin-contact-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: #1e293b;
+        }
+        .admin-contact-links {
+            display: flex;
+            gap: 12px;
+        }
+        .admin-link {
+            color: #2469F5;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+        }
+        .admin-link i { margin-right: 4px; }
 
         .footer { margin-top: 24px; text-align: center; color: #8f9eb2; font-size: 13px; }
+        .share-portal-link { color: #2469F5; text-decoration: none; font-weight: 500; }
 
         .bottom-nav {
             position: fixed;
@@ -493,12 +494,6 @@
             border-radius: 30px;
             backdrop-filter: blur(4px);
         }
-
-        .share-btn-block {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-        }
     </style>
 </head>
 <body>
@@ -508,14 +503,14 @@
             <div class="app-wrapper">
                 <div class="header" id="mainHeader">
                     <div class="portal-title">
-                        <i class="fas fa-tree"></i> 
+                        <i class="fas fa-store-alt"></i> 
                         ЖК Измайловский лес
                     </div>
                 </div>
 
                 <div class="description-card" id="descriptionCard">
                     <div class="description-text">
-                        Партнеры, услугами которых мы пользуемся сами. Мы объединились и решили дать уникальные условия вам — нашим любимым клиентам. Просто покажите экран на кассе.
+                        Партнеры, услугами которых мы пользуемся сами. Мы объединились и решили дать уникальные условия Вам — нашим любимым клиентам. Просто покажите экран на кассе.
                     </div>
                 </div>
 
@@ -560,32 +555,26 @@
                     <div class="partners-list" id="partnersList"></div>
                 </div>
 
-                <!-- Блок "Добавить на главный экран" -->
-                <div class="install-card" id="installCard">
-                    <div class="install-title">📱 Добавить на главный экран</div>
-                    <div class="install-text">Нажмите «Поделиться» → «На экран Домой», чтобы портал был всегда под рукой, как приложение.</div>
-                    <button class="install-btn" id="installBtn"><i class="fas fa-arrow-down"></i> Установить</button>
+                <!-- Блок "Добавить на главный экран" (без кнопки и смайлика) -->
+                <div class="add-to-home-block" id="addToHomeBlock">
+                    <div class="add-to-home-title">Добавить на главный экран</div>
+                    <div class="add-to-home-text">
+                        Нажмите «Поделиться» → «На экран Домой», чтобы портал был всегда под рукой, как приложение.
+                    </div>
                 </div>
 
-                <!-- Блок "Поделиться порталом" -->
-                <div class="section" style="margin: 10px 0;">
-                    <button class="action-btn primary" id="sharePortalBlockBtn" style="width:100%; padding:14px;">
-                        <i class="fas fa-share-alt"></i> Поделиться порталом
-                    </button>
-                </div>
-
-                <!-- Блок "Связь с администратором портала" -->
-                <div class="admin-card" id="adminCard">
-                    <div class="admin-title">📞 Связь с администратором портала</div>
-                    <div class="admin-buttons">
-                        <a href="https://t.me/ВАШ_АККАУНТ" target="_blank" class="admin-btn telegram"><i class="fab fa-telegram-plane"></i> Telegram</a>
-                        <a href="https://mssg.me/ваш_макс" target="_blank" class="admin-btn"><i class="fas fa-comment-dots"></i> MAX</a>
+                <!-- Блок связи с администратором -->
+                <div class="admin-contact-block" id="adminContactBlock">
+                    <div class="admin-contact-title">Связь с администратором портала</div>
+                    <div class="admin-contact-links">
+                        <a href="https://t.me/ВАШ_АККАУНТ" target="_blank" class="admin-link"><i class="fab fa-telegram-plane"></i> Telegram</a>
+                        <a href="https://max.ru/ВАШ_АККАУНТ" target="_blank" class="admin-link"><i class="fas fa-comment-dots"></i> MAX</a>
                     </div>
                 </div>
 
                 <div class="footer" id="mainFooter">
                     Локальный портал · ЖК Измайловский лес · Балашиха<br>
-                    © 2025
+                    © 2025 · <a href="#" class="share-portal-link" id="sharePortalBtn">👥 Поделиться порталом</a>
                 </div>
             </div>
         </div>
@@ -598,7 +587,7 @@
     <div class="nav-item" data-nav="about"><i class="fas fa-info-circle"></i><span>О портале</span></div>
 </div>
 
-<!-- Модальное окно акции -->
+<!-- Модальное окно акции (расширенное) -->
 <div class="modal" id="offerModal">
     <div class="modal-content">
         <span class="modal-close" onclick="closeModal()">&times;</span>
@@ -624,20 +613,21 @@
     </div>
 </div>
 
-<!-- Модальное окно "О портале" (обновлённое) -->
+<!-- Модальное окно "О портале" (обновлённый текст, без домика и с кнопкой "Поделиться") -->
 <div class="modal" id="aboutModal">
     <div class="modal-content">
         <span class="modal-close" onclick="closeAboutModal()">&times;</span>
         <div class="modal-title">О проекте ЖК Измайловский лес</div>
         <div class="modal-text">
-            <p style="margin-bottom: 16px;">Партнеры, услугами которых мы пользуемся сами. Мы объединились и решили дать уникальные условия вам — нашим любимым клиентам. Просто покажите экран на кассе.</p>
-            <p style="margin-bottom: 12px;"><strong>Что здесь есть?</strong><br>
-            ✓ Закрытые акции для жителей<br>
-            ✓ Карта с проверенными местами<br>
-            ✓ Удобный доступ с телефона</p>
+            <p style="margin-bottom: 12px;">Партнеры, услугами которых мы пользуемся сами. Мы объединились и решили дать уникальные условия Вам — нашим любимым клиентам. Просто покажите экран на кассе.</p>
+            <p style="margin-bottom: 12px;"><strong>Почему это удобно?</strong><br>
+            ✓ Закрытые акции — скидки до 30%<br>
+            ✓ Всё рядом — интерактивная карта<br>
+            ✓ Делитесь с соседями<br>
+            ✓ Добавьте портал на главный экран</p>
         </div>
-        <div class="share-btn-block">
-            <button class="action-btn primary" id="aboutShareBtn" style="padding: 14px 20px;"><i class="fas fa-share-alt"></i> Поделиться порталом</button>
+        <div class="modal-contact">
+            <button class="modal-btn" style="background: #2469F5;" onclick="sharePortal()"><i class="fas fa-share-alt"></i> Поделиться</button>
         </div>
     </div>
 </div>
@@ -741,7 +731,7 @@
             
             profileBtn.onclick = () => {
                 if (offer.partnerUrl && offer.partnerUrl !== '#') window.location.href = offer.partnerUrl;
-                else alert('Страница появится позже.');
+                else alert('Страница партнёра появится позже.');
                 closeModal();
             };
             callBtn.href = `tel:${offer.phone}`;
@@ -772,6 +762,18 @@
         window.closeModal = () => modal.classList.remove('active');
         window.closeAboutModal = () => aboutModal.classList.remove('active');
 
+        window.sharePortal = function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'ЖК Измайловский лес',
+                    text: 'Партнеры, услугами которых мы пользуемся сами. Уникальные условия для соседей!',
+                    url: window.location.href
+                }).catch(() => {});
+            } else {
+                alert('Поделитесь ссылкой: ' + window.location.href);
+            }
+        };
+
         renderOffers();
         renderPartners();
 
@@ -800,7 +802,6 @@
         modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
         aboutModal.addEventListener('click', e => { if (e.target === aboutModal) closeAboutModal(); });
 
-        // Нижняя навигация
         document.querySelectorAll('.nav-item').forEach(i => i.addEventListener('click', () => {
             const nav = i.dataset.nav;
             if (nav === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -808,33 +809,12 @@
             else if (nav === 'about') aboutModal.classList.add('active');
         }));
 
-        // Кнопка "Поделиться порталом" (в отдельном блоке)
-        document.getElementById('sharePortalBlockBtn').addEventListener('click', () => {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('Зацени портал со скидками для жителей ЖК Измайловский лес!');
-            if (navigator.share) {
-                navigator.share({ title: 'ЖК Измайловский лес', text: 'Портал с акциями для своих', url: window.location.href }).catch(() => {});
-            } else {
-                window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
-            }
+        document.getElementById('sharePortalBtn').addEventListener('click', e => {
+            e.preventDefault();
+            sharePortal();
         });
 
-        // Кнопка "Поделиться" в модалке "О портале"
-        document.getElementById('aboutShareBtn').addEventListener('click', () => {
-            if (navigator.share) {
-                navigator.share({ title: 'ЖК Измайловский лес', text: 'Локальный портал с акциями для жителей.', url: window.location.href }).catch(() => {});
-            } else {
-                window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('ЖК Измайловский лес — портал со скидками')}`, '_blank');
-            }
-        });
-
-        // Инструкция по установке (показываем подсказку)
-        document.getElementById('installBtn').addEventListener('click', () => {
-            alert('Нажмите «Поделиться» (квадратик со стрелкой в Safari) и выберите «На экран «Домой»');
-        });
-
-        // Анимации
-        ['mainHeader','descriptionCard','storiesSection','offersSection','mapSection','partnersSection','installCard','adminCard','mainFooter'].forEach((id,i) => {
+        ['mainHeader','descriptionCard','storiesSection','offersSection','mapSection','partnersSection','addToHomeBlock','adminContactBlock','mainFooter'].forEach((id,i) => {
             const el = document.getElementById(id);
             if (el) setTimeout(() => el.classList.add('visible'), i * 60);
         });
